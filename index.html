@@ -89,14 +89,101 @@
 }
 </script>
 <style>
-.features .card .card-summary {
-  min-height: 250px;
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 60px 20px;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
-@media (max-width: 600px) {
-  .features .card .card-summary {
-    min-height: 180px;
+.features .feature-card {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  border: none;
+  border-left: 4px solid var(--orange);
+  flex: none;
+  max-width: none;
+  text-align: left;
+  min-height: 280px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.features .feature-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.features .feature-card h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: var(--deep-sea);
+  font-size: 1.2rem;
+}
+
+.features .feature-card p {
+  color: #555;
+  margin-bottom: 15px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.features .feature-card ul {
+  padding-left: 18px;
+  color: #333;
+}
+
+.features .feature-card li {
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  padding: 0;
+  border: none;
+}
+
+/* Hero desktop layout */
+.hero-inner {
+  padding: 5px 20px;
+  text-align: center;
+  justify-content: center;
+}
+
+.hero-inner .hero-content {
+  align-items: center;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: white;
+}
+
+.hero-subtitle {
+  max-width: 700px;
+  margin: 0 auto 30px auto;
+  font-size: 1.2rem;
+  opacity: 0.9;
+  line-height: 1.5;
+}
+
+.hero-action {
+  justify-content: center;
+}
+
+main > .section-spacer:first-of-type {
+  margin-top: 75px;
+}
+
+@media (max-width: 1024px) {
+  main > .section-spacer:first-of-type {
+    margin-top: 150px;
   }
+}
+
+#segment-section {
+  scroll-margin-top: 200px;
 }
 
 /* Visible focus style for language buttons */
@@ -148,8 +235,9 @@
       <img src="img/logo-compact.svg" alt="GSC Logo" class="hero-logo-compact"-- IGNORE --->
     </div>
     <div class="hero-content">
+      <h1 data-i18n="hero_index_title">Statistik verst&auml;ndlich. Ergebnisse sicher.</h1>
+      <p class="hero-subtitle" data-i18n="hero_index_subtitle">Ich helfe Dir und Deinem Team, datenbasierte Probleme klar zu verstehen und zuverl&auml;ssig zu l&ouml;sen &ndash; von der ersten Fragestellung bis zum umsetzbaren Ergebnis.</p>
       <div class="hero-action">
-        <span class="hero-scrolled-text" data-i18n="hero_home">Sie suchen Unterstützung für Projekt, Thesis, Unterricht oder Schulungen?</span>
         <a href="#segment-section" class="btn" data-i18n="hero_index_btn">Leistungen entdecken</a>
       </div>
     </div>
@@ -158,7 +246,7 @@
 
 <main>
 
-<div class="section-spacer" style="margin-top: 150px;"></div>
+<div class="section-spacer"></div>
 
 <section id="segment-section">
   <h2 data-i18n="page_title">Herzlich Willkommen!</h2>
@@ -167,52 +255,38 @@
 
 <div class="section-spacer" style="margin-top: 50px;"></div>
 
-<section class="features pricing-grid">
-  <div class="card merged">
-    <div class="card-summary">
-      <div class="merged-grid">
-        <div class="merged-col">
-          <h3 data-i18n="features_1_title">Statistikverständnis</h3>
-          <p data-i18n="features_1_intro">Verstehen Sie statistische Konzepte und Methoden, um fundierte Schlussfolgerungen ziehen zu können.</p>
-          <p data-i18n="features_1_text">Statistische Methoden wie Hypothesentests, Konfidenzintervalle und Regressionen werden praxisnah erklärt, sodass Sie sie sicher in Ihrer Arbeit anwenden können.</p>
-        </div>
-        <div class="merged-col">
-          <h3 data-i18n="features_2_title">Datenanalyse</h3>
-          <p data-i18n="features_2_intro">Korrekte Auswertung und Interpretation Ihrer Daten mit SPSS, R oder Python.</p>
-          <p data-i18n="features_2_text">Von der Datenvorbereitung über deskriptive Statistiken bis hin zu komplexen multivariaten Analysen begleite ich Sie durch den gesamten Auswertungsprozess.</p>
-        </div>
-        <div class="merged-col">
-          <h3 data-i18n="features_3_title">Arbeitshilfe</h3>
-          <p data-i18n="features_3_intro">Professionelle Unterstützung bei der Erstellung Ihrer wissenschaftlichen Arbeiten.</p>
-          <p data-i18n="features_3_text">Ob Bachelor-, Masterarbeit oder Dissertation – ich unterstütze Sie bei der methodischen Planung, Analyse und der verständlichen Darstellung Ihrer Ergebnisse.</p>
-        </div>
-      </div>
-    </div>
-    <div class="card-details">
-      <div><h3 data-i18n="b_details_title">Leistungen</h3>
-      <div class="section-divider-card-details"></div></div>
-      <div class="merged-grid">
-        <div class="merged-col">
-          <ul>
-            <li data-i18n="features_1_detail">Statistische Methoden wie Hypothesentests, Konfidenzintervalle und Regressionen werden praxisnah erklärt, sodass Sie sie sicher in Ihrer Arbeit anwenden können.</li>
-            <li data-i18n="features_1_detail2">Verständnis von statistischen Konzepten für fundierte Schlussfolgerungen.</li>
-          </ul>
-        </div>
-        <div class="merged-col">
-          <ul>
-            <li data-i18n="features_2_detail">Von der Datenvorbereitung über deskriptive Statistiken bis hin zu komplexen multivariaten Analysen begleite ich Sie durch den gesamten Auswertungsprozess.</li>
-            <li data-i18n="features_2_detail2">Korrekte Auswertung und Interpretation Ihrer Daten mit SPSS, R oder Python.</li>
-          </ul>
-        </div>
-        <div class="merged-col">
-          <ul>
-            <li data-i18n="features_3_detail">Ob Bachelor-, Masterarbeit oder Dissertation – ich unterstütze Sie bei der methodischen Planung, Analyse und der verständlichen Darstellung Ihrer Ergebnisse.</li>
-            <li data-i18n="features_3_detail2">Professionelle Unterstützung bei der Erstellung Ihrer wissenschaftlichen Arbeiten.</li>
-          </ul>
-        </div>
-      </div>
-    </div>
+<section id="features" class="features">
+
+  <div class="feature-card">
+    <h3 data-i18n="home_feature_1_title">Lernen &amp; Verstehen</h3>
+    <p data-i18n="home_feature_1_text">Baue ein sicheres Verst&amp;auml;ndnis f&amp;uuml;r Statistik und Datenanalyse auf.</p>
+    <ul>
+      <li data-i18n="home_feature_1_li1">Video- &amp; PDF-Lernmaterial</li>
+      <li data-i18n="home_feature_1_li2">Statistik verst&amp;auml;ndlich erkl&amp;auml;rt</li>
+      <li data-i18n="home_feature_1_li3">Schritt-f&amp;uuml;r-Schritt Lernstruktur</li>
+    </ul>
   </div>
+
+  <div class="feature-card">
+    <h3 data-i18n="home_feature_2_title">Unterst&amp;uuml;tzung &amp; Nachhilfe</h3>
+    <p data-i18n="home_feature_2_text">Gezielte Hilfe bei Aufgaben, Arbeiten und Pr&amp;uuml;fungen.</p>
+    <ul>
+      <li data-i18n="home_feature_2_li1">Online- &amp; Vor-Ort-Nachhilfe</li>
+      <li data-i18n="home_feature_2_li2">Thesis- &amp; Pr&amp;uuml;fungsunterst&amp;uuml;tzung</li>
+      <li data-i18n="home_feature_2_li3">Hilfe bei konkreten Problemen</li>
+    </ul>
+  </div>
+
+  <div class="feature-card">
+    <h3 data-i18n="home_feature_3_title">Analyse &amp; Consulting</h3>
+    <p data-i18n="home_feature_3_text">Datenanalyse und Beratung f&amp;uuml;r Unternehmen.</p>
+    <ul>
+      <li data-i18n="home_feature_3_li1">Datenanalyse &amp; Modellierung</li>
+      <li data-i18n="home_feature_3_li2">Methodenberatung &amp; Konzeption</li>
+      <li data-i18n="home_feature_3_li3">Workshops &amp; Projektunterst&amp;uuml;tzung</li>
+    </ul>
+  </div>
+
 </section>
 
 

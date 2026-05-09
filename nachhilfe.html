@@ -99,6 +99,61 @@
   }
 }
 
+/* Hero desktop layout */
+.hero-inner {
+  padding: 5px 20px;
+  text-align: center;
+  justify-content: center;
+}
+
+.hero-inner .hero-content {
+  align-items: center;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: white;
+}
+
+.hero-subtitle {
+  max-width: 700px;
+  margin: 0 auto 30px auto;
+  font-size: 1.2rem;
+  opacity: 0.9;
+  line-height: 1.5;
+}
+
+.hero-action {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.subtitle {
+  text-align: center;
+}
+
+/* Services grid - side by side on desktop */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 1024px) {
+  .services-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+#pricing {
+  scroll-margin-top: 375px;
+}
+
 /* Visible focus style for language buttons */
 .lang-btn:focus {
   outline: 2px solid #0078d4;
@@ -110,6 +165,16 @@
   text-align: center;
   display: block;
   margin-bottom: 15px;
+}
+
+main > .section-spacer:first-of-type {
+  margin-top: 75px;
+}
+
+@media (max-width: 1024px) {
+  main > .section-spacer:first-of-type {
+    margin-top: 150px;
+  }
 }
 </style>
 </head>
@@ -147,9 +212,11 @@
       <img src="img/logo-compact.svg" alt="GSC Logo" class="hero-logo-compact"-- IGNORE --->
     </div>
     <div class="hero-content">
+      <h1 data-i18n="hero_nachhilfe_title">Statistik verstehen. Probleme l&ouml;sen. Sicher bestehen.</h1>
+      <p class="hero-subtitle" data-i18n="hero_nachhilfe_subtitle">Ich unterst&uuml;tze Dich bei Statistik, Datenanalyse und wissenschaftlichen Arbeiten &ndash; verst&auml;ndlich, strukturiert und genau auf Dein Niveau abgestimmt.</p>
       <div class="hero-action">
-        <span class="hero-scrolled-text" data-i18n="hero_services">Statistik Nachhilfe oder Consulting | Abitur bis Doktorat & Schulungen</span>
-        <a href="#contact" class="btn btn-book open-modal" data-i18n="hero_nachhilfe_btn">Jetzt Nachhilfe buchen</a>
+        <a href="#pricing" class="btn" data-i18n="hero_nachhilfe_pricing_btn">Preise ansehen</a>
+        <a href="#contact" class="btn-secondary open-modal" data-i18n="hero_nachhilfe_btn">Jetzt Nachhilfe buchen</a>
       </div>
     </div>
   </div>
@@ -157,80 +224,92 @@
 
 <main>
 
-<div class="section-spacer" style="margin-top: 150px;"></div>
+<div class="section-spacer"></div>
 
-<section aria-label="Leistungen">
-  <h2 data-i18n="services_title">Leistungen</h2>
-  <p class="subtitle" data-i18n="services_subtitle">Statistik-Nachhilfe, Data Science & Beratung – individuell auf Ihr Niveau abgestimmt.</p>
+<section id="services">
+  <h2 data-i18n="nach_services_title">Unterst\u00fctzung f\u00fcr Dein Ziel</h2>
+  <p class="subtitle" data-i18n="nach_services_subtitle">Ob Pr\u00fcfung, Hausarbeit oder komplexe Analyse &ndash; ich helfe Dir, Statistik wirklich zu verstehen und anzuwenden.</p>
 
   <div class="services-grid">
 
     <div class="service-card">
       <div class="service-header">
-        <h3 data-i18n="serv1_title">Statistik Nachhilfe</h3>
-        <p data-i18n="serv1_text">Von Abitur bis Bachelor – Grundlagen, deskriptive Statistik, Hypothesentests & mehr.</p>
+        <h3 data-i18n="nach_1_title">Statistik verstehen</h3>
+        <span class="service-toggle">+</span>
       </div>
       <div class="service-details">
-        <ul>
-          <li data-i18n="serv1_li1">Deskriptive Statistik & Grafiken</li>
-          <li data-i18n="serv1_li2">Wahrscheinlichkeitsrechnung</li>
-          <li data-i18n="serv1_li3">t-Tests, ANOVA, Chi²</li>
-          <li data-i18n="serv1_li4">SPSS, R & Python Einführung</li>
-        </ul>
+        <div class="service-body-inner">
+          <p data-i18n="nach_1_text">Du verstehst endlich, was hinter den Methoden wirklich steckt.</p>
+          <ul>
+            <li data-i18n="nach_1_li1">Grundlagen &amp; Denkweise der Statistik</li>
+            <li data-i18n="nach_1_li2">Hypothesentests &amp; Regression verst\u00e4ndlich erkl\u00e4rt</li>
+            <li data-i18n="nach_1_li3">Konfidenzintervalle &amp; Wahrscheinlichkeiten</li>
+            <li data-i18n="nach_1_li4">SPSS, R &amp; Python Einf\u00fchrung</li>
+          </ul>
+        </div>
       </div>
     </div>
 
     <div class="service-card">
       <div class="service-header">
-        <h3 data-i18n="serv2_title">Data Science & Machine Learning</h3>
-        <p data-i18n="serv2_text">Von Regression bis Deep Learning – praxisnah in Python, R & SQL.</p>
+        <h3 data-i18n="nach_2_title">Analyse &amp; Aufgaben l\u00f6sen</h3>
+        <span class="service-toggle">+</span>
       </div>
       <div class="service-details">
-        <ul>
-          <li data-i18n="serv2_li1">Lineare & logistische Regression</li>
-          <li data-i18n="serv2_li2">Entscheidungsbäume & Random Forest</li>
-          <li data-i18n="serv2_li3">Clustering & PCA</li>
-          <li data-i18n="serv2_li4">Neural Networks & TensorFlow</li>
-        </ul>
+        <div class="service-body-inner">
+          <p data-i18n="nach_2_text">Du bekommst Unterst\u00fctzung bei konkreten Aufgaben und Auswertungen.</p>
+          <ul>
+            <li data-i18n="nach_2_li1">Datenaufbereitung &amp; Cleaning</li>
+            <li data-i18n="nach_2_li2">Deskriptive &amp; explorative Analysen</li>
+            <li data-i18n="nach_2_li3">Regression &amp; ANOVA</li>
+            <li data-i18n="nach_2_li4">Interpretation deiner Ergebnisse</li>
+          </ul>
+        </div>
       </div>
     </div>
 
     <div class="service-card">
       <div class="service-header">
-        <h3 data-i18n="serv3_title">Bachelor- & Masterthesis</h3>
-        <p data-i18n="serv3_text">Methodik, Stichprobe, Auswertung – methodische Begleitung bis zur Abgabe.</p>
+        <h3 data-i18n="nach_3_title">Abschlussarbeiten</h3>
+        <span class="service-toggle">+</span>
       </div>
       <div class="service-details">
-        <ul>
-          <li data-i18n="serv3_li1">Forschungsfrage & Hypothesen</li>
-          <li data-i18n="serv3_li2">Stichprobenplanung</li>
-          <li data-i18n="serv3_li3">Datenanalyse & Interpretation</li>
-          <li data-i18n="serv3_li4">Korrektur & Feedback</li>
-        </ul>
+        <div class="service-body-inner">
+          <p data-i18n="nach_3_text">Strukturierte Unterst\u00fctzung von der Idee bis zur Abgabe.</p>
+          <ul>
+            <li data-i18n="nach_3_li1">Forschungsfrage &amp; Methodik</li>
+            <li data-i18n="nach_3_li2">Statistische Auswertung</li>
+            <li data-i18n="nach_3_li3">Interpretation &amp; Darstellung</li>
+            <li data-i18n="nach_3_li4">Feedback &amp; Korrektur</li>
+          </ul>
+        </div>
       </div>
     </div>
 
     <div class="service-card">
       <div class="service-header">
-        <h3 data-i18n="serv4_title">Doktorat & Forschung</h3>
-        <p data-i18n="serv4_text">Fortgeschrittene Statistik, Poweranalysen & Publikationsberatung.</p>
+        <h3 data-i18n="nach_4_title">Fortgeschrittene Statistik</h3>
+        <span class="service-toggle">+</span>
       </div>
       <div class="service-details">
-        <ul>
-          <li data-i18n="serv4_li1">Multivariate Verfahren</li>
-          <li data-i18n="serv4_li2">Mixed Models & Survival Analysis</li>
-          <li data-i18n="serv4_li3">Poweranalysen & Sample Size</li>
-          <li data-i18n="serv4_li4">Publikationsstrategie</li>
-        </ul>
+        <div class="service-body-inner">
+          <p data-i18n="nach_4_text">F\u00fcr Master &amp; Promotion mit komplexen Fragestellungen.</p>
+          <ul>
+            <li data-i18n="nach_4_li1">Multivariate Verfahren</li>
+            <li data-i18n="nach_4_li2">Modellierung &amp; Interpretation</li>
+            <li data-i18n="nach_4_li3">Poweranalyse &amp; Studiendesign</li>
+            <li data-i18n="nach_4_li4">Forschungsorientierte Beratung</li>
+          </ul>
+        </div>
       </div>
     </div>
 
   </div>
 </section>
+<section id="pricing">
 
-<section>
-  <h2 data-i18n="pricing_title">Preismodelle</h2>
-  <p class="subtitle" data-i18n="pricing_subtitle">Transparente Preise für Statistik-Nachhilfe & Data Science Consulting – angepasst an Komplexität und Niveau.</p>
+  <h2 data-i18n="nach_pricing_title">Preise &amp; Buchung</h2>
+  <p class="subtitle" data-i18n="nach_pricing_subtitle">Transparente Modelle f\u00fcr jede Unterst\u00fctzung &ndash; flexibel und fair.</p>
 
   <div class="pricing-grid">
 
@@ -400,8 +479,8 @@
 </section>
 
 <section class="cta">
-  <h2 data-i18n="cta_title">Stärke deine statistischen Kenntnisse gezielt!</h2>
-  <p data-i18n="cta_text">Vereinbare jetzt einen Termin mit mir und verbessere deine Ergebnisse.</p>
+  <h2 data-i18n="nach_cta_title">Statistik verstehen leicht gemacht!</h2>
+  <p data-i18n="nach_cta_text">Buche Deine Unterst\u00fctzung oder starte direkt mit einer meiner Aufgaben.</p>
 
   <!-- <a href="nachhilfe.html" class="btn" data-i18n="segment_student_btn">Zu Nachhilfe & Studium</a> -->
   <!-- <a href="consulting.html" class="btn" data-i18n="segment_company_btn">Zur Beratungsseite</a> -->
@@ -519,6 +598,14 @@
     }
 
     requestAnimationFrame(raf);
+
+    document.querySelectorAll('a[href^="#"]:not(.open-modal)').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) lenis.scrollTo(target);
+      });
+    });
 </script>
 <div class="bg-band band-1"></div>
 <div class="bg-band band-2"></div>

@@ -88,109 +88,63 @@ function setupPricingCards() {
   if (!pricingContainer) return;
 
   const cards = pricingContainer.querySelectorAll('.card');
-  const discountMap = {
-    'Basics': { '5 Stunden': '10%', '10 Stunden': '15%', '5 hours': '10%', '10 hours': '15%' },
-    'Advanced': { '5 Stunden': '9%', '10 Stunden': '14%', '5 hours': '9%', '10 hours': '14%' },
-    'Expert': { '5 Stunden': '7%', '10 Stunden': '12%', '5 hours': '7%', '10 hours': '12%' }
-  };
+  let lastOpenedCard = null;
 
   pricingContainer.addEventListener('click', function(e) {
     const card = e.target.closest('.card');
     if (!card) return;
-    if (e.target.closest('.booking-option') || e.target.closest('.package-option') || e.target.closest('.btn-book') || e.target.closest('.package-custom-input')) return;
+    if (e.target.closest('.btn, .open-modal')) return;
     e.preventDefault();
     e.stopPropagation();
 
     const wasExpanded = card.classList.contains('expanded');
     cards.forEach(c => { if (c !== card) c.classList.remove('expanded'); });
     card.classList.toggle('expanded');
-    if (!wasExpanded) {
+    const isNowExpanded = card.classList.contains('expanded');
+
+    if (isNowExpanded && !wasExpanded && card !== lastOpenedCard) {
+      lastOpenedCard = card;
       setTimeout(() => {
         const cardRect = card.getBoundingClientRect();
-        const scrollDown = cardRect.height * 0.49;
-        smoothScrollBy(scrollDown, 500);
+        const viewportH = window.innerHeight;
+        const scrollTo = cardRect.top + cardRect.height / 2 - viewportH / 2;
+        smoothScrollBy(scrollTo, 500);
       }, 450);
     }
-  });
 
-  cards.forEach(card => {
-    card.querySelectorAll('.booking-option').forEach(opt => {
-      opt.addEventListener('click', function(e) {
-        e.stopPropagation();
-        card.querySelectorAll('.booking-option').forEach(o => o.classList.remove('active'));
-        opt.classList.add('active');
-        const pkg = card.querySelector('.package-options');
-        if (pkg) pkg.classList.toggle('visible', opt.dataset.booking === 'package');
-      });
-    });
-
-    card.querySelectorAll('.package-option').forEach(opt => {
-      opt.addEventListener('click', function(e) {
-        e.stopPropagation();
-        card.querySelectorAll('.package-option').forEach(o => o.classList.remove('active'));
-        opt.classList.add('active');
-        const input = card.querySelector('.package-custom-input');
-        if (input) input.classList.toggle('visible', opt.dataset.hours === 'custom');
-      });
-    });
-
-    const bookBtn = card.querySelector('.btn-book');
-    if (bookBtn) {
-      bookBtn.addEventListener('click', function(e) {
-        e.stopPropagation();
-        const modal = document.getElementById('contactModal');
-        setBookingMode(modal);
-
-        const cardName = card.dataset.card;
-        const bookingCard = document.getElementById('booking-card');
-        if (bookingCard) bookingCard.value = cardName;
-
-        const activeBooking = card.querySelector('.booking-option.active');
-        const bookingType = activeBooking ? activeBooking.textContent.trim() : 'Einzelbuchung';
-        const bookingTypeField = document.getElementById('booking-type');
-        if (bookingTypeField) bookingTypeField.value = bookingType;
-
-        const bookingHoursField = document.getElementById('booking-hours');
-        const bookingDiscountField = document.getElementById('booking-discount');
-        const bookingLanguageField = document.getElementById('booking-language');
-
-        if (activeBooking && activeBooking.dataset.booking === 'package') {
-          const activePkg = card.querySelector('.package-option.active');
-          const hoursLabel = activePkg ? activePkg.textContent.trim() : '5 Stunden';
-          const customInput = card.querySelector('.package-custom-input');
-          if (bookingHoursField) {
-            bookingHoursField.value = activePkg && activePkg.dataset.hours === 'custom'
-              ? (customInput.value || 'nicht angegeben')
-              : hoursLabel;
-          }
-          if (bookingDiscountField) {
-            bookingDiscountField.value = activePkg && activePkg.dataset.hours === 'custom'
-              ? 'individuell'
-              : (discountMap[cardName]?.[hoursLabel] || '0%');
-          }
-        } else {
-          if (bookingHoursField) bookingHoursField.value = '';
-          if (bookingDiscountField) bookingDiscountField.value = '0%';
+    const anyOpen = Array.from(cards).some(c => c.classList.contains('expanded'));
+    if (!anyOpen) {
+      lastOpenedCard = null;
+      if (window.innerWidth > 768) {
+        const pricingSection = document.getElementById('pricing');
+        if (pricingSection) {
+          const rect = pricingSection.getBoundingClientRect();
+          smoothScrollBy(rect.top - 375, 500);
         }
-
-        if (bookingLanguageField) bookingLanguageField.value = (document.documentElement.lang || 'DE').toUpperCase();
-      });
+      }
     }
   });
-
 }
 
 function setupServiceCards() {
   const cards = document.querySelectorAll('.service-card');
   if (!cards.length) return;
 
+  let openCard = null;
+
   cards.forEach(card => {
     card.style.cursor = 'pointer';
     card.addEventListener('click', function(e) {
       if (e.target.closest('.btn, .open-modal')) return;
       e.stopPropagation();
-      cards.forEach(c => { if (c !== card) c.classList.remove('expanded'); });
-      card.classList.toggle('expanded');
+      if (this === openCard) {
+        this.classList.remove('expanded');
+        openCard = null;
+      } else {
+        if (openCard) openCard.classList.remove('expanded');
+        this.classList.add('expanded');
+        openCard = this;
+      }
     });
   });
 
