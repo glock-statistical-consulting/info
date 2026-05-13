@@ -1,19 +1,5 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts"
 
-interface FormData {
-  email: string
-  name?: string
-  message?: string
-  _next?: string
-  booking_card?: string
-  booking_type?: string
-  booking_hours?: string
-  topic?: string
-  scope?: string
-  timeline?: string
-  budget?: string
-}
-
 Deno.serve(async (req) => {
   if (req.method !== "POST") {
     return new Response("Method not allowed", { status: 405 })
@@ -22,14 +8,26 @@ Deno.serve(async (req) => {
   try {
     const raw = await req.text()
     const params = new URLSearchParams(raw)
-    const data: FormData = Object.fromEntries(params) as unknown as FormData
+    const data: Record<string, string> = {}
+    for (const [k, v] of params) data[k] = v
 
     if (!data.email) {
-      return new Response("Email is required", { status: 400 })
+      return new Response(JSON.stringify({ error: "Email is required" }), {
+        status: 400,
+        headers: { "Content-Type": "application/json" },
+      })
     }
 
-    const supabaseUrl = Deno.env.get("SUPABASE_URL")!
-    const supabaseKey = Deno.env.get("SUPABASE_ANON_KEY")!
+    const supabaseUrl = Deno.env.get("SUPABASE_URL")
+    const supabaseKey = Deno.env.get("SUPABASE_ANON_KEY")
+
+    if (!supabaseUrl || !supabaseKey) {
+      return new Response(
+        JSON.stringify({ error: "Missing env vars", url: !!supabaseUrl, key: !!supabaseKey }),
+        { status: 500, headers: { "Content-Type": "application/json" } }
+      )
+    }
+
     const { createClient } = await import("https://esm.sh/@supabase/supabase-js@2.49.1")
     const supabase = createClient(supabaseUrl, supabaseKey)
 
@@ -55,6 +53,9 @@ Deno.serve(async (req) => {
       headers: { Location: redirectUrl },
     })
   } catch (err) {
-    return new Response(String(err), { status: 500 })
+    return new Response(JSON.stringify({ error: String(err), type: typeof err, keys: err && typeof err === "object" ? Object.keys(err as object) : [] }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" },
+    })
   }
 })
