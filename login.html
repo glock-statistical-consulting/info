@@ -630,12 +630,20 @@
       return;
     }
 
+    const res = await fetch(data.signedUrl);
+    if (!res.ok) {
+      showToast(translations[currentLang]?.dashboard_download_error || 'Download fehlgeschlagen.');
+      return;
+    }
+    const blob = await res.blob();
+    const blobUrl = URL.createObjectURL(blob);
     const a = document.createElement('a');
-    a.href = data.signedUrl;
+    a.href = blobUrl;
     a.download = fileName;
     document.body.appendChild(a);
     a.click();
     a.remove();
+    URL.revokeObjectURL(blobUrl);
   }
 
   async function deleteFile(e) {
