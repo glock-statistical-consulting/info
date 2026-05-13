@@ -33,6 +33,7 @@ export default function LoginPage() {
   const [submitting, setSubmitting] = useState(false)
   const [isRecovery, setIsRecovery] = useState(false)
   const [loaded, setLoaded] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
     const stored = localStorage.getItem("lang") as Lang | null
@@ -55,7 +56,7 @@ export default function LoginPage() {
   }, [auth.mode, isRecovery])
 
   if (!loaded) {
-    return <div className="flex min-h-screen items-center justify-center text-gray-400">Laden...</div>
+    return <div className="flex min-h-screen items-center justify-center" style={{ background: "#e8eef3", color: "#999" }}>Laden...</div>
   }
 
   const tr = (key: string) => t(key, lang)
@@ -124,138 +125,129 @@ export default function LoginPage() {
     : tab === "login" ? tr("login_submit_login")
     : tr("login_submit_register")
 
-  const infoText = isRecovery ? null :
-    tab === "reset" ? null :
-    tab === "login" ? tr("login_info_text") : tr("login_info_text_alt")
-
-  const infoLink = isRecovery ? tr("login_back_to_login") :
-    tab === "reset" ? tr("login_back_to_login") :
-    tab === "login" ? tr("login_info_link") : tr("login_info_link_alt")
-
-  const showPassword = tab !== "reset" || isRecovery
+  const showForm = isRecovery || tab !== "reset"
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#e8eef3]">
-      <header className="flex items-center justify-between px-6 py-4">
-        <a href="/" className="flex items-center gap-3">
-          <img src="/img/logo-compact.svg" alt="GSC" className="h-10" />
-          <span className="hidden text-sm font-semibold text-[#1e4466] sm:inline">
-            Glock Statistical Consulting
-          </span>
-        </a>
-        <div className="flex items-center gap-3">
-          <a href="/" className="text-xs text-gray-500 hover:text-[#ff6600]">
-            {lang === "de" ? "Zurück zur Startseite" : "Back to Home"}
-          </a>
-          <button
-            onClick={() => setLangAndStore("de")}
-            className={`text-xs font-semibold ${lang === "de" ? "text-[#ff6600]" : "text-gray-500"}`}
-          >
-            DE
-          </button>
-          <span className="text-xs text-gray-400">|</span>
-          <button
-            onClick={() => setLangAndStore("en")}
-            className={`text-xs font-semibold ${lang === "en" ? "text-[#ff6600]" : "text-gray-500"}`}
-          >
-            EN
-          </button>
+    <div style={{ background: "#e8eef3", minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+      <style>{`
+        body {
+          background: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)), url('/img/body_background_two.jpg');
+          background-size: cover;
+          background-attachment: fixed;
+        }
+      `}</style>
+
+      <nav className="navbar">
+        <div className="nav-left">
+          <img src="/img/logo-compact.svg" alt="GSC Logo" className="nav-logo" />
+        </div>
+        <div className="nav-links" id="navLinks" style={{ display: menuOpen ? "flex" : undefined }}>
+          <a href="/" data-i18n="navbar_home">Home</a>
+          <a href="/about.html" data-i18n="navbar_about">Über mich</a>
+          <a href="/nachhilfe.html" data-i18n="navbar_services">Nachhilfe &amp; Studium</a>
+          <a href="/consulting.html" data-i18n="navbar_consulting">Beratung &amp; Datenanalyse</a>
+          <a href="/login" data-i18n="navbar_login" style={{ color: "var(--orange)" }}>Login</a>
+        </div>
+        <div className="nav-right">
+          <div className="nav-lang">
+            <button className={`lang-btn ${lang === "de" ? "active-lang" : ""}`} data-lang="de" onClick={() => setLangAndStore("de")}>DE</button>
+            <span className="lang-separator">|</span>
+            <button className={`lang-btn ${lang === "en" ? "active-lang" : ""}`} data-lang="en" onClick={() => setLangAndStore("en")}>EN</button>
+          </div>
+          <div className="burger" id="burger" onClick={() => setMenuOpen(!menuOpen)}>☰</div>
+        </div>
+      </nav>
+
+      <header className="hero">
+        <div className="hero-inner">
+          <div className="hero-brand"></div>
+          <div className="hero-content">
+            <div className="hero-action">
+              <span className="hero-scrolled-text" data-i18n="hero_login">Login – Kundenbereich</span>
+            </div>
+          </div>
         </div>
       </header>
 
-      <div className="flex flex-1 items-center justify-center px-4 pb-16">
-      <div className="w-full max-w-md rounded-2xl bg-white/70 p-8 shadow-lg backdrop-blur">
-        <div className="mb-6 flex flex-col items-center gap-2">
-          <img src="/img/logo-compact.svg" alt="GSC" className="h-10" />
-          <h1 className="text-xl font-bold text-[#1e4466]">
-            {tr("login_tab_login")}
-          </h1>
-        </div>
+      <main style={{ flex: 1 }}>
+        <div className="section-spacer" style={{ marginTop: "150px" }}></div>
 
-        {!isRecovery && tab !== "reset" && (
-          <div className="mb-6 flex border-b-2 border-gray-300">
-            {(["login", "register"] as const).map((t) => (
-              <button
-                key={t}
-                onClick={() => { setTab(t); setError(""); setSuccess("") }}
-                className={`flex-1 pb-2 text-sm font-semibold transition-colors ${
-                  tab === t
-                    ? "border-b-3 border-[#ff6600] text-[#1e4466]"
-                    : "text-gray-400"
-                }`}
-              >
-                {tr(`login_tab_${t}`)}
-              </button>
-            ))}
-          </div>
-        )}
-
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder={tr("login_email_placeholder")}
-            required
-            autoComplete={isRecovery ? "off" : "email"}
-            className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm focus:border-[#ff6600] focus:outline-none"
-          />
-
-          {showPassword && (
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder={isRecovery ? tr("login_new_password") : tr("login_password_placeholder")}
-              required
-              autoComplete={isRecovery ? "new-password" : tab === "login" ? "current-password" : "new-password"}
-              className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm focus:border-[#ff6600] focus:outline-none"
-            />
+        <section className="login-content" id="authSection">
+          {!isRecovery && tab !== "reset" && (
+            <div className="login-tabs">
+              <button className={`login-tab ${tab === "login" ? "active" : ""}`} data-login-tab="login" onClick={() => { setTab("login"); setError(""); setSuccess("") }}>{tr("login_tab_login")}</button>
+              <button className={`login-tab ${tab === "register" ? "active" : ""}`} data-login-tab="register" onClick={() => { setTab("register"); setError(""); setSuccess("") }}>{tr("login_tab_register")}</button>
+            </div>
           )}
 
-          {error && <p className="text-center text-xs text-red-600">{error}</p>}
-          {success && <p className="text-center text-xs text-green-600">{success}</p>}
+          <form className="login-form" id="authForm" onSubmit={handleSubmit}>
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder={tr("login_email_placeholder")} required autoComplete={isRecovery ? "off" : "email"} />
+            {showForm && (
+              <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder={isRecovery ? tr("login_new_password") : tr("login_password_placeholder")} required autoComplete={isRecovery ? "new-password" : tab === "login" ? "current-password" : "new-password"} />
+            )}
+            <p className="login-error">{error || "\u00A0"}</p>
+            <p className="login-success">{success || "\u00A0"}</p>
+            <button type="submit" className="btn" disabled={submitting}>{submitting ? "..." : btnLabel}</button>
+          </form>
 
-          <button
-            type="submit"
-            disabled={submitting}
-            className="mt-2 w-full rounded-2xl bg-[#ff6600] px-6 py-3 font-semibold text-white transition-opacity hover:opacity-90 disabled:opacity-60"
-          >
-            {submitting ? "..." : btnLabel}
-          </button>
-        </form>
+          <p className="login-info">
+            {isRecovery ? (
+              <a style={{ cursor: "pointer" }} onClick={() => { setTab("login"); setIsRecovery(false); setError(""); setSuccess("") }}>{tr("login_back_to_login")}</a>
+            ) : tab === "reset" ? (
+              <a style={{ cursor: "pointer" }} onClick={() => { setTab("login"); setError(""); setSuccess("") }}>{tr("login_back_to_login")}</a>
+            ) : (
+              <>
+                <span>{tab === "login" ? tr("login_info_text") : tr("login_info_text_alt")} </span>
+                <a style={{ cursor: "pointer" }} onClick={() => { setTab(tab === "login" ? "register" : "login"); setError(""); setSuccess("") }}>{tab === "login" ? tr("login_info_link") : tr("login_info_link_alt")}</a>
+              </>
+            )}
+          </p>
 
-        <div className="mt-5 text-center text-sm text-gray-500">
-          {infoText && <span>{infoText} </span>}
-          {infoLink && (
-            <button
-              onClick={() => {
-                if (tab === "reset" || isRecovery) {
-                  setTab("login"); setIsRecovery(false)
-                } else {
-                  setTab(tab === "login" ? "register" : "login")
-                }
-                setError(""); setSuccess("")
-              }}
-              className="font-semibold text-[#ff6600] hover:underline"
-            >
-              {infoLink}
-            </button>
+          {tab === "login" && !isRecovery && (
+            <p className="login-info" id="forgotPasswordRow">
+              <a style={{ cursor: "pointer" }} onClick={() => { setTab("reset"); setError(""); setSuccess("") }}>{tr("login_forgot_password")}</a>
+            </p>
           )}
-        </div>
+        </section>
+      </main>
 
-        {tab === "login" && !isRecovery && (
-          <div className="mt-2 text-center text-sm">
-            <button
-              onClick={() => { setTab("reset"); setError(""); setSuccess("") }}
-              className="font-semibold text-[#ff6600] hover:underline"
-            >
-              {tr("login_forgot_password")}
-            </button>
+      <footer>
+        <div>
+          <div className="chr-footer__social__container">
+            <h3 className="chr-footer__social__title chr-headline-6">{tr("footer_social_title")}</h3>
+            <ul className="chr-footer__social__list">
+              <li>
+                <a href="https://www.youtube.com/user/@meinuser" aria-label="YouTube" target="_blank" rel="noopener noreferrer nofollow" className="social-btn youtube">
+                  <img src="/img/youtube_icon.svg" alt="YouTube" />
+                  <title>YouTube</title>
+                </a>
+              </li>
+              <li>
+                <a href="https://de.linkedin.com/in/glockconsulting" aria-label="linkedin" target="_blank" rel="noopener noreferrer nofollow" className="social-btn linkedin">
+                  <img src="/img/linkedin_icon.svg" alt="LinkedIn" />
+                  <title>LinkedIn</title>
+                </a>
+              </li>
+            </ul>
           </div>
-        )}
-      </div>
-    </div>
+          <div className="section-divider"></div>
+          <div className="footer-spacer">
+            <ul className="chr-footer__list">
+              <li><p>Kevin Glock Statistical Consulting Services | GSC</p></li>
+              <li className="footer-legal">
+                <a href="/impressum.html" className="footer-link">{tr("footer_impressum")}</a>
+                <span className="footer-sep">|</span>
+                <a href="/datenschutz.html" className="footer-link">{tr("footer_datenschutz")}</a>
+              </li>
+              <li><p>Handcrafted with ❤️</p></li>
+            </ul>
+          </div>
+        </div>
+      </footer>
+
+      <div className="bg-band band-1"></div>
+      <div className="bg-band band-2"></div>
+      <div className="bg-band band-3"></div>
     </div>
   )
 }
