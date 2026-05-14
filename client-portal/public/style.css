@@ -1118,16 +1118,18 @@ footer p {
   margin-bottom: 12px;
 }
 
-.hero-badges .badge {
-  display: inline-flex;
-  align-items: center;
-  background: rgba(255,255,255,0.15);
-  color: white;
-  padding: .55rem .9rem;
-  border-radius: 999px;
-  font-size: .9rem;
-  font-weight: 600;
-  margin-bottom: 12px;
+.hero-badges {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  margin-bottom: 35px;
+}
+
+.hero-badge {
+  background: rgba(255,255,255,0.08);
+  padding: 14px 16px;
+  border-radius: 14px;
+  font-size: 0.9rem;
 }
 
 .select-group {
