@@ -148,6 +148,8 @@ html{
   position: sticky;
   top: 70px;
   z-index: 999;
+  padding-top: 150px;
+  padding-bottom: 150px;
 }
 
 .hero h1 {
