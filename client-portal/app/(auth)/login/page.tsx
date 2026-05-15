@@ -136,6 +136,7 @@ export default function LoginPage() {
       <div style={{ position: "fixed", inset: 0, background: "linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)), center/cover url('/img/body_background_two.jpg') #e8eef3", zIndex: -1 }} />
       <link rel="stylesheet" href="/style.css" />
       <style>{`
+        header.hero { position: absolute !important; }
         .login-content {
           max-width: 520px;
           margin: 0 auto;
