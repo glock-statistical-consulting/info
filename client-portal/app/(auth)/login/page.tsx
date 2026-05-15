@@ -138,7 +138,7 @@ export default function LoginPage() {
         body { background: linear-gradient(rgba(255,255,255,0.92), rgba(255,255,255,0.92)), url('/img/body_background_two.jpg') center/cover fixed #e8eef3; }
         header.hero { position: fixed !important; top: 70px; }
         header.hero.hero-short { padding-top: 20px; padding-bottom: 20px; min-height: auto; z-index: 10; }
-        @media (max-width: 1024px) { header.hero { top: 56px; } }
+        @media (max-width: 1024px) { header.hero { top: 56px !important; } }
         .login-content {
           max-width: 520px;
           margin: 0 auto;
