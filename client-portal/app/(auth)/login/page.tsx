@@ -136,8 +136,9 @@ export default function LoginPage() {
       <link rel="stylesheet" href="/style.css" />
       <style>{`
         body { background: url('/img/body_background_two.jpg') center/cover fixed #e8eef3; }
-        .bg-overlay { position: fixed; inset: 0; background: rgba(255,255,255,0.92); z-index: -1; pointer-events: none; }
+        .bg-overlay { position: fixed; inset: 0; background: rgba(255,255,255,0.92); z-index: 1; pointer-events: none; }
         header.hero { position: fixed !important; top: 70px; }
+        header.hero.hero-short { padding-top: 20px; padding-bottom: 20px; min-height: auto; z-index: 10; }
         .login-content {
           max-width: 520px;
           margin: 0 auto;
@@ -212,6 +213,7 @@ export default function LoginPage() {
         #forgotPasswordRow { margin-top: 4px; }
       `}</style>
 
+      <div className="bg-overlay"></div>
       <nav className="navbar">
         <div className="nav-left">
           <img src="/img/logo-compact.svg" alt="GSC Logo" className="nav-logo" />
@@ -233,7 +235,7 @@ export default function LoginPage() {
         </div>
       </nav>
 
-      <header className="hero" style={{ position: "absolute" }}>
+      <header className="hero hero-short" style={{ position: "absolute" }}>
         <div className="hero-inner">
           <div className="hero-brand"></div>
           <div className="hero-content">
@@ -320,8 +322,6 @@ export default function LoginPage() {
         </div>
       </footer>
 
-
-      <div className="bg-overlay"></div>
     </div>
     </ReactLenis>
   )
