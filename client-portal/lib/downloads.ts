@@ -2,39 +2,242 @@ export interface DownloadItem {
   name: string
   description: string
   fileUrl: string
-  fileSize?: string
 }
 
-export const DOWNLOADS: Record<string, DownloadItem[]> = {
-  library_bundle: [
-    {
-      name: "Statistik Grundlagen PDF",
-      description: "Deskriptive Statistik, Wahrscheinlichkeitsrechnung, Hypothesentests",
-      fileUrl: "/downloads/library/statistik-grundlagen.pdf",
-    },
-    {
-      name: "SPSS Einführung",
-      description: "Schritt-für-Schritt Anleitung für SPSS",
-      fileUrl: "/downloads/library/spss-einfuehrung.pdf",
-    },
-    {
-      name: "R Einführung",
-      description: "Grundlagen der statistischen Programmierung mit R",
-      fileUrl: "/downloads/library/r-einfuehrung.pdf",
-    },
-    {
-      name: "Python Einführung",
-      description: "Data Science Grundlagen mit Python",
-      fileUrl: "/downloads/library/python-einfuehrung.pdf",
-    },
-    {
-      name: "Übungsaufgaben mit Lösungen",
-      description: "Aufgaben zu Regression, t-Test, ANOVA & mehr",
-      fileUrl: "/downloads/library/uebungsaufgaben.pdf",
-    },
-  ],
+const PREFIX = "downloads/library"
+
+const BASICS_ITEMS: DownloadItem[] = [
+  { name: "Entscheidungsbaum – Welcher Test?", description: "Flussdiagramm zur Testauswahl", fileUrl: `${PREFIX}/entscheidungsbaum_welcher_test.docx` },
+  { name: "Spickzettel Abi", description: "Kompaktübersicht fürs Abitur", fileUrl: `${PREFIX}/spickzettel_abi.docx` },
+  { name: "Cheatsheet High School", description: "Englische Kurzreferenz Abi-Niveau", fileUrl: `${PREFIX}/cheatsheet_high_school.docx` },
+  { name: "Diktionär Abi", description: "DE–EN Fachbegriffe Abitur", fileUrl: `${PREFIX}/01_diktionaer_abi.docx` },
+  { name: "Dossier 10 – Einfache lineare Regression", description: "Grundlagen der linearen Regression", fileUrl: `${PREFIX}/10_einfache_lineare_regression.docx` },
+  { name: "Dossier 11 – Multiple lineare Regression", description: "Multiple Regressionsanalyse", fileUrl: `${PREFIX}/11_multiple_lineare_regression.docx` },
+  { name: "Dossier 12 – Logistische Regression", description: "Logistische Regressionsmodelle", fileUrl: `${PREFIX}/12_logistische_regression.docx` },
+  { name: "Dossier 13 – t-Test & Gruppenvergleich", description: "t-Tests und Gruppenvergleiche", fileUrl: `${PREFIX}/13_t_test_gruppenvergleich.docx` },
+  { name: "Prüfung 10 – Einfache lineare Regression", description: "Übungsprüfung mit Lösungen", fileUrl: `${PREFIX}/prüfung_10_einfache_lineare_regression.docx` },
+  { name: "Prüfung 11 – Multiple lineare Regression", description: "Übungsprüfung mit Lösungen", fileUrl: `${PREFIX}/prüfung_11_multiple_lineare_regression.docx` },
+  { name: "Prüfung 12 – Logistische Regression", description: "Übungsprüfung mit Lösungen", fileUrl: `${PREFIX}/prüfung_12_logistische_regression.docx` },
+  { name: "Prüfung 13 – t-Test & Gruppenvergleich", description: "Übungsprüfung mit Lösungen", fileUrl: `${PREFIX}/prüfung_13_t_test_gruppenvergleich.docx` },
+  { name: "Exam 10 – Simple Linear Regression", description: "English practice exam", fileUrl: `${PREFIX}/exam_10_simple_linear_regression.docx` },
+  { name: "Exam 11 – Multiple Linear Regression", description: "English practice exam", fileUrl: `${PREFIX}/exam_11_multiple_linear_regression.docx` },
+  { name: "Exam 12 – Logistic Regression", description: "English practice exam", fileUrl: `${PREFIX}/exam_12_logistic_regression.docx` },
+  { name: "Exam 13 – t-Test & Group Comparison", description: "English practice exam", fileUrl: `${PREFIX}/exam_13_t_test_group_comparison.docx` },
+]
+
+const STANDARD_EXTRA: DownloadItem[] = [
+  { name: "Diktionär Bachelor", description: "DE–EN Fachbegriffe Bachelor", fileUrl: `${PREFIX}/02_diktionaer_bachelor.docx` },
+  { name: "Cheatsheet Bachelor", description: "Kurzreferenz Bachelor-Niveau", fileUrl: `${PREFIX}/cheatsheet_bachelor.docx` },
+  { name: "Spickzettel Bachelor", description: "Kompaktübersicht Bachelor", fileUrl: `${PREFIX}/spickzettel_bachelor.docx` },
+  { name: "Einführung R (Bachelor)", description: "R-Grundlagen für Bachelor-Studenten", fileUrl: `${PREFIX}/07_einfuehrung_R_bachelor.docx` },
+  { name: "Code R (Bachelor)", description: "R-Skripte Bachelor", fileUrl: `${PREFIX}/07_code_R_bachelor.R` },
+  { name: "Einführung Python (Bachelor)", description: "Python-Grundlagen Bachelor", fileUrl: `${PREFIX}/08_einfuehrung_python_bachelor.docx` },
+  { name: "Code Python (Bachelor)", description: "Python-Skripte Bachelor", fileUrl: `${PREFIX}/08_code_python_bachelor.py` },
+  { name: "Einführung SPSS (Bachelor)", description: "SPSS-Grundlagen Bachelor", fileUrl: `${PREFIX}/09_einfuehrung_spss_bachelor.docx` },
+  { name: "Code SPSS (Bachelor)", description: "SPSS-Syntax Bachelor", fileUrl: `${PREFIX}/09_code_spss_bachelor.sps` },
+  { name: "Klausur Bachelor", description: "Konstruktion & Musterlösung", fileUrl: `${PREFIX}/05_klausur_bachelor.docx` },
+  { name: "Dossier 14 – ANOVA (einfaktoriell)", description: "Einfaktorielle Varianzanalyse", fileUrl: `${PREFIX}/14_anova_einfaktoriell.docx` },
+  { name: "Dossier 15 – ANOVA (ANCOVA, mehrfaktoriell)", description: "Mehrfaktorielle Varianzanalyse", fileUrl: `${PREFIX}/15_anova_ancova_mehrfaktoriell.docx` },
+  { name: "Dossier 16 – Nichtparametrische Tests", description: "Rangbasierte Testverfahren", fileUrl: `${PREFIX}/16_nichtparametrische_tests.docx` },
+  { name: "Dossier 17 – Chi-Quadrat-Tests", description: "Kategoriale Datenanalyse", fileUrl: `${PREFIX}/17_chi_quadrat_tests.docx` },
+  { name: "Dossier 18 – Korrelation (Pearson, Spearman)", description: "Korrelationsanalysen", fileUrl: `${PREFIX}/18_korrelation_pearson_spearman.docx` },
+  { name: "Dossier 19 – Mehrebenenanalyse (Multilevel)", description: "Hierarchische Datenmodelle", fileUrl: `${PREFIX}/19_mehrebenenanalyse_multilevel.docx` },
+  { name: "Dossier 20 – Faktorenanalyse (EFA, CFA)", description: "Explorative & konfirmatorische Faktorenanalyse", fileUrl: `${PREFIX}/20_faktorenanalyse_efa_cfa.docx` },
+  { name: "Dossier 21 – Bayes-Statistik", description: "Bayessche Inferenz", fileUrl: `${PREFIX}/21_bayes_statistik.docx` },
+  { name: "Dossier 22 – Machine Learning (Supervised)", description: "Überwachtes Lernen", fileUrl: `${PREFIX}/22_machine_learning_supervised.docx` },
+  { name: "Dossier 23 – Machine Learning (Unsupervised)", description: "Unüberwachtes Lernen", fileUrl: `${PREFIX}/23_machine_learning_unsupervised.docx` },
+  { name: "Dossier 24 – Zeitreihenanalyse", description: "Analyse von Zeitreihendaten", fileUrl: `${PREFIX}/24_zeitreihenanalyse.docx` },
+  { name: "Dossier 25 – Bootstrap & Resampling", description: "Resampling-Verfahren", fileUrl: `${PREFIX}/25_bootstrap_resampling.docx` },
+  { name: "Dossier 26 – Wissenschaftstheorie", description: "Grundlagen der Wissenschaftstheorie", fileUrl: `${PREFIX}/26_wissenschaftstheorie.docx` },
+  { name: "Dossier 27 – Erkenntnistheorie & Ontologie", description: "Philosophische Grundlagen", fileUrl: `${PREFIX}/27_erkenntnistheorie_ontologie.docx` },
+  { name: "Dossier 28 – Forschungsdesign (Grundlagen)", description: "Studiendesigns", fileUrl: `${PREFIX}/28_forschungsdesign_grundlagen.docx` },
+  { name: "Dossier 29 – Messtheorie & Operationalisierung", description: "Messinstrumente & Skalen", fileUrl: `${PREFIX}/29_messtheorie_operationalisierung.docx` },
+  { name: "Dossier 30 – Stichprobenverfahren", description: "Sampling-Methoden", fileUrl: `${PREFIX}/30_stichprobenverfahren.docx` },
+  { name: "Dossier 31 – Explorative Datenanalyse", description: "EDA-Techniken", fileUrl: `${PREFIX}/31_explorative_datenanalyse.docx` },
+  { name: "Dossier 32 – Qualitative Methoden (Überblick)", description: "Grundlagen qualitativer Forschung", fileUrl: `${PREFIX}/32_qualitative_methoden_überblick.docx` },
+  { name: "Dossier 33 – Qualitatives Interview", description: "Interviewmethoden", fileUrl: `${PREFIX}/33_qualitatives_interview.docx` },
+  { name: "Dossier 34 – Inhaltsanalyse (Mayring)", description: "Qualitative Inhaltsanalyse", fileUrl: `${PREFIX}/34_inhaltsanalyse_mayring.docx` },
+  { name: "Dossier 35 – Grounded Theory", description: "Grounded-Theory-Methodologie", fileUrl: `${PREFIX}/35_grounded_theory.docx` },
+  { name: "Dossier 36 – Diskursanalyse", description: "Diskurstheoretische Methoden", fileUrl: `${PREFIX}/36_diskursanalyse.docx` },
+  { name: "Dossier 37 – Qualitative Beobachtung & Ethnographie", description: "Ethnographische Forschungsmethoden", fileUrl: `${PREFIX}/37_qualitative_beobachtung_ethnographie.docx` },
+]
+
+const ADVANCED_EXTRA: DownloadItem[] = [
+  { name: "Diktionär Master", description: "DE–EN Fachbegriffe Master", fileUrl: `${PREFIX}/03_diktionaer_master.docx` },
+  { name: "Cheatsheet Master", description: "Kurzreferenz Master-Niveau", fileUrl: `${PREFIX}/cheatsheet_master.docx` },
+  { name: "Spickzettel Master", description: "Kompaktübersicht Master", fileUrl: `${PREFIX}/spickzettel_master.docx` },
+  { name: "Einführung R (Master)", description: "R für Fortgeschrittene", fileUrl: `${PREFIX}/07_einfuehrung_R_master.docx` },
+  { name: "Code R (Master)", description: "R-Skripte Master", fileUrl: `${PREFIX}/07_code_R_master.R` },
+  { name: "Einführung Python (Master)", description: "Python für Fortgeschrittene", fileUrl: `${PREFIX}/08_einfuehrung_python_master.docx` },
+  { name: "Code Python (Master)", description: "Python-Skripte Master", fileUrl: `${PREFIX}/08_code_python_master.py` },
+  { name: "Einführung SPSS (Master)", description: "SPSS für Fortgeschrittene", fileUrl: `${PREFIX}/09_einfuehrung_spss_master.docx` },
+  { name: "Code SPSS (Master)", description: "SPSS-Syntax Master", fileUrl: `${PREFIX}/09_code_spss_master.sps` },
+  { name: "Klausur Master", description: "Konstruktion & Musterlösung Master", fileUrl: `${PREFIX}/06_klausur_master.docx` },
+  { name: "Dossier 38 – Experimentelles Design", description: "Experimentelle Versuchspläne", fileUrl: `${PREFIX}/38_experimentelles_design.docx` },
+  { name: "Dossier 39 – Poweranalyse", description: "Statistische Teststärke", fileUrl: `${PREFIX}/39_poweranalyse.docx` },
+  { name: "Dossier 40 – Survey Design", description: "Fragebogenkonstruktion", fileUrl: `${PREFIX}/40_survey_design.docx` },
+  { name: "Dossier 41 – Mixed Methods", description: "Kombination quantitativer & qualitativer Methoden", fileUrl: `${PREFIX}/41_mixed_methods.docx` },
+  { name: "Dossier 42 – Systematic Reviews & Meta-Analyse", description: "Evidenzsynthese", fileUrl: `${PREFIX}/42_systematic_reviews_meta_analyse.docx` },
+]
+
+const ALL_ACCESS_EXTRA: DownloadItem[] = [
+  { name: "Diktionär PhD", description: "DE–EN Fachbegriffe Promotion", fileUrl: `${PREFIX}/04_diktionaer_phd.docx` },
+  { name: "Cheatsheet PhD", description: "Kurzreferenz PhD-Niveau", fileUrl: `${PREFIX}/cheatsheet_phd.docx` },
+  { name: "Spickzettel PhD", description: "Kompaktübersicht Promotion", fileUrl: `${PREFIX}/spickzettel_phd.docx` },
+  { name: "Literaturverzeichnis", description: "Umfassende Literatursammlung Statistik & Methoden", fileUrl: `${PREFIX}/literaturverzeichnis_statistik_methoden.docx` },
+  { name: "EN – Simple Linear Regression", description: "Englische Version Dossier 10", fileUrl: `${PREFIX}/en_10_simple_linear_regression.docx` },
+  { name: "EN – Multiple Linear Regression", description: "Englische Version Dossier 11", fileUrl: `${PREFIX}/en_11_multiple_linear_regression.docx` },
+  { name: "EN – Logistic Regression", description: "Englische Version Dossier 12", fileUrl: `${PREFIX}/en_12_logistic_regression.docx` },
+  { name: "EN – t-Test & Group Comparison", description: "Englische Version Dossier 13", fileUrl: `${PREFIX}/en_13_t_test_group_comparison.docx` },
+  { name: "EN – One-Way ANOVA", description: "Englische Version Dossier 14", fileUrl: `${PREFIX}/en_14_one_way_anova.docx` },
+  { name: "EN – ANOVA, ANCOVA, Factorial", description: "Englische Version Dossier 15", fileUrl: `${PREFIX}/en_15_anova_ancova_factorial.docx` },
+  { name: "EN – Nonparametric Tests", description: "Englische Version Dossier 16", fileUrl: `${PREFIX}/en_16_nonparametric_tests.docx` },
+  { name: "EN – Chi-Square Tests", description: "Englische Version Dossier 17", fileUrl: `${PREFIX}/en_17_chi_square_tests.docx` },
+  { name: "EN – Correlation (Pearson, Spearman)", description: "Englische Version Dossier 18", fileUrl: `${PREFIX}/en_18_correlation_pearson_spearman.docx` },
+  { name: "EN – Multilevel Analysis", description: "Englische Version Dossier 19", fileUrl: `${PREFIX}/en_19_multilevel_analysis.docx` },
+  { name: "EN – Factor Analysis (EFA, CFA)", description: "Englische Version Dossier 20", fileUrl: `${PREFIX}/en_20_factor_analysis_efa_cfa.docx` },
+  { name: "EN – Bayesian Statistics", description: "Englische Version Dossier 21", fileUrl: `${PREFIX}/en_21_bayesian_statistics.docx` },
+  { name: "EN – Supervised Learning", description: "Englische Version Dossier 22", fileUrl: `${PREFIX}/en_22_supervised_learning.docx` },
+  { name: "EN – Unsupervised Learning", description: "Englische Version Dossier 23", fileUrl: `${PREFIX}/en_23_unsupervised_learning.docx` },
+  { name: "EN – Time Series Analysis", description: "Englische Version Dossier 24", fileUrl: `${PREFIX}/en_24_time_series_analysis.docx` },
+  { name: "EN – Bootstrap & Resampling", description: "Englische Version Dossier 25", fileUrl: `${PREFIX}/en_25_bootstrap_resampling.docx` },
+  { name: "EN – Philosophy of Science", description: "Englische Version Dossier 26", fileUrl: `${PREFIX}/en_26_philosophy_of_science.docx` },
+  { name: "EN – Epistemology & Ontology", description: "Englische Version Dossier 27", fileUrl: `${PREFIX}/en_27_epistemology_ontology.docx` },
+  { name: "EN – Research Design Basics", description: "Englische Version Dossier 28", fileUrl: `${PREFIX}/en_28_research_design_basics.docx` },
+  { name: "EN – Measurement Theory", description: "Englische Version Dossier 29", fileUrl: `${PREFIX}/en_29_measurement_theory.docx` },
+  { name: "EN – Sampling Methods", description: "Englische Version Dossier 30", fileUrl: `${PREFIX}/en_30_sampling_methods.docx` },
+  { name: "EN – Exploratory Data Analysis", description: "Englische Version Dossier 31", fileUrl: `${PREFIX}/en_31_exploratory_data_analysis.docx` },
+  { name: "EN – Qualitative Methods Overview", description: "Englische Version Dossier 32", fileUrl: `${PREFIX}/en_32_qualitative_methods_overview.docx` },
+  { name: "EN – Qualitative Interview", description: "Englische Version Dossier 33", fileUrl: `${PREFIX}/en_33_qualitative_interview.docx` },
+  { name: "EN – Content Analysis (Mayring)", description: "Englische Version Dossier 34", fileUrl: `${PREFIX}/en_34_content_analysis_mayring.docx` },
+  { name: "EN – Grounded Theory", description: "Englische Version Dossier 35", fileUrl: `${PREFIX}/en_35_grounded_theory.docx` },
+  { name: "EN – Discourse Analysis", description: "Englische Version Dossier 36", fileUrl: `${PREFIX}/en_36_discourse_analysis.docx` },
+  { name: "EN – Qualitative Observation & Ethnography", description: "Englische Version Dossier 37", fileUrl: `${PREFIX}/en_37_qualitative_observation_ethnography.docx` },
+  { name: "EN – Experimental Design", description: "Englische Version Dossier 38", fileUrl: `${PREFIX}/en_38_experimental_design.docx` },
+  { name: "EN – Power Analysis", description: "Englische Version Dossier 39", fileUrl: `${PREFIX}/en_39_power_analysis.docx` },
+  { name: "EN – Survey Design", description: "Englische Version Dossier 40", fileUrl: `${PREFIX}/en_40_survey_design.docx` },
+  { name: "EN – Mixed Methods", description: "Englische Version Dossier 41", fileUrl: `${PREFIX}/en_41_mixed_methods.docx` },
+  { name: "EN – Systematic Reviews & Meta-Analysis", description: "Englische Version Dossier 42", fileUrl: `${PREFIX}/en_42_systematic_reviews_meta_analysis.docx` },
+]
+
+const PRUFUNGEN_10_25: DownloadItem[] = [
+  { name: "Prüfung 14 – ANOVA (einfaktoriell)", description: "Übungsprüfung mit Lösungen", fileUrl: `${PREFIX}/prüfung_14_anova_einfaktoriell.docx` },
+  { name: "Prüfung 15 – ANOVA (ANCOVA)", description: "Übungsprüfung mit Lösungen", fileUrl: `${PREFIX}/prüfung_15_anova_ancova_mehrfaktoriell.docx` },
+  { name: "Prüfung 16 – Nichtparametrische Tests", description: "Übungsprüfung mit Lösungen", fileUrl: `${PREFIX}/prüfung_16_nichtparametrische_tests.docx` },
+  { name: "Prüfung 17 – Chi-Quadrat-Tests", description: "Übungsprüfung mit Lösungen", fileUrl: `${PREFIX}/prüfung_17_chi_quadrat_tests.docx` },
+  { name: "Prüfung 18 – Korrelation", description: "Übungsprüfung mit Lösungen", fileUrl: `${PREFIX}/prüfung_18_korrelation_pearson_spearman.docx` },
+  { name: "Prüfung 19 – Mehrebenenanalyse", description: "Übungsprüfung mit Lösungen", fileUrl: `${PREFIX}/prüfung_19_mehrebenenanalyse_multilevel.docx` },
+  { name: "Prüfung 20 – Faktorenanalyse", description: "Übungsprüfung mit Lösungen", fileUrl: `${PREFIX}/prüfung_20_faktorenanalyse_efa_cfa.docx` },
+  { name: "Prüfung 21 – Bayes-Statistik", description: "Übungsprüfung mit Lösungen", fileUrl: `${PREFIX}/prüfung_21_bayes_statistik.docx` },
+  { name: "Prüfung 22 – ML (Supervised)", description: "Übungsprüfung mit Lösungen", fileUrl: `${PREFIX}/prüfung_22_machine_learning_supervised.docx` },
+  { name: "Prüfung 23 – ML (Unsupervised)", description: "Übungsprüfung mit Lösungen", fileUrl: `${PREFIX}/prüfung_23_machine_learning_unsupervised.docx` },
+  { name: "Prüfung 24 – Zeitreihenanalyse", description: "Übungsprüfung mit Lösungen", fileUrl: `${PREFIX}/prüfung_24_zeitreihenanalyse.docx` },
+  { name: "Prüfung 25 – Bootstrap & Resampling", description: "Übungsprüfung mit Lösungen", fileUrl: `${PREFIX}/prüfung_25_bootstrap_resampling.docx` },
+]
+
+const PRUFUNGEN_26_42: DownloadItem[] = [
+  { name: "Prüfung 26 – Wissenschaftstheorie", description: "Übungsprüfung mit Lösungen", fileUrl: `${PREFIX}/prüfung_26_wissenschaftstheorie.docx` },
+  { name: "Prüfung 27 – Erkenntnistheorie", description: "Übungsprüfung mit Lösungen", fileUrl: `${PREFIX}/prüfung_27_erkenntnistheorie_ontologie.docx` },
+  { name: "Prüfung 28 – Forschungsdesign", description: "Übungsprüfung mit Lösungen", fileUrl: `${PREFIX}/prüfung_28_forschungsdesign_grundlagen.docx` },
+  { name: "Prüfung 29 – Messtheorie", description: "Übungsprüfung mit Lösungen", fileUrl: `${PREFIX}/prüfung_29_messtheorie_operationalisierung.docx` },
+  { name: "Prüfung 30 – Stichprobenverfahren", description: "Übungsprüfung mit Lösungen", fileUrl: `${PREFIX}/prüfung_30_stichprobenverfahren.docx` },
+  { name: "Prüfung 31 – Explorative Datenanalyse", description: "Übungsprüfung mit Lösungen", fileUrl: `${PREFIX}/prüfung_31_explorative_datenanalyse.docx` },
+  { name: "Prüfung 32 – Qualitative Methoden", description: "Übungsprüfung mit Lösungen", fileUrl: `${PREFIX}/prüfung_32_qualitative_methoden_überblick.docx` },
+  { name: "Prüfung 33 – Qualitatives Interview", description: "Übungsprüfung mit Lösungen", fileUrl: `${PREFIX}/prüfung_33_qualitatives_interview.docx` },
+  { name: "Prüfung 34 – Inhaltsanalyse", description: "Übungsprüfung mit Lösungen", fileUrl: `${PREFIX}/prüfung_34_inhaltsanalyse_mayring.docx` },
+  { name: "Prüfung 35 – Grounded Theory", description: "Übungsprüfung mit Lösungen", fileUrl: `${PREFIX}/prüfung_35_grounded_theory.docx` },
+  { name: "Prüfung 36 – Diskursanalyse", description: "Übungsprüfung mit Lösungen", fileUrl: `${PREFIX}/prüfung_36_diskursanalyse.docx` },
+  { name: "Prüfung 37 – Qualitative Beobachtung", description: "Übungsprüfung mit Lösungen", fileUrl: `${PREFIX}/prüfung_37_qualitative_beobachtung_ethnographie.docx` },
+  { name: "Prüfung 38 – Experimentelles Design", description: "Übungsprüfung mit Lösungen", fileUrl: `${PREFIX}/prüfung_38_experimentelles_design.docx` },
+  { name: "Prüfung 39 – Poweranalyse", description: "Übungsprüfung mit Lösungen", fileUrl: `${PREFIX}/prüfung_39_poweranalyse.docx` },
+  { name: "Prüfung 40 – Survey Design", description: "Übungsprüfung mit Lösungen", fileUrl: `${PREFIX}/prüfung_40_survey_design.docx` },
+  { name: "Prüfung 41 – Mixed Methods", description: "Übungsprüfung mit Lösungen", fileUrl: `${PREFIX}/prüfung_41_mixed_methods.docx` },
+  { name: "Prüfung 42 – Systematic Reviews", description: "Übungsprüfung mit Lösungen", fileUrl: `${PREFIX}/prüfung_42_systematic_reviews_meta_analyse.docx` },
+]
+
+const EXAMS_14_42: DownloadItem[] = [
+  { name: "Exam 14 – One-Way ANOVA", description: "English practice exam", fileUrl: `${PREFIX}/exam_14_one_way_anova.docx` },
+  { name: "Exam 15 – ANOVA, ANCOVA, Factorial", description: "English practice exam", fileUrl: `${PREFIX}/exam_15_anova_ancova_factorial.docx` },
+  { name: "Exam 16 – Nonparametric Tests", description: "English practice exam", fileUrl: `${PREFIX}/exam_16_nonparametric_tests.docx` },
+  { name: "Exam 17 – Chi-Square Tests", description: "English practice exam", fileUrl: `${PREFIX}/exam_17_chi_square_tests.docx` },
+  { name: "Exam 18 – Correlation", description: "English practice exam", fileUrl: `${PREFIX}/exam_18_correlation_pearson_spearman.docx` },
+  { name: "Exam 19 – Multilevel Analysis", description: "English practice exam", fileUrl: `${PREFIX}/exam_19_multilevel_analysis.docx` },
+  { name: "Exam 20 – Factor Analysis", description: "English practice exam", fileUrl: `${PREFIX}/exam_20_factor_analysis_efa_cfa.docx` },
+  { name: "Exam 21 – Bayesian Statistics", description: "English practice exam", fileUrl: `${PREFIX}/exam_21_bayesian_statistics.docx` },
+  { name: "Exam 22 – Supervised Learning", description: "English practice exam", fileUrl: `${PREFIX}/exam_22_supervised_learning.docx` },
+  { name: "Exam 23 – Unsupervised Learning", description: "English practice exam", fileUrl: `${PREFIX}/exam_23_unsupervised_learning.docx` },
+  { name: "Exam 24 – Time Series Analysis", description: "English practice exam", fileUrl: `${PREFIX}/exam_24_time_series_analysis.docx` },
+  { name: "Exam 25 – Bootstrap & Resampling", description: "English practice exam", fileUrl: `${PREFIX}/exam_25_bootstrap_resampling.docx` },
+  { name: "Exam 26 – Philosophy of Science", description: "English practice exam", fileUrl: `${PREFIX}/exam_26_philosophy_of_science.docx` },
+  { name: "Exam 27 – Epistemology & Ontology", description: "English practice exam", fileUrl: `${PREFIX}/exam_27_epistemology_ontology.docx` },
+  { name: "Exam 28 – Research Design Basics", description: "English practice exam", fileUrl: `${PREFIX}/exam_28_research_design_basics.docx` },
+  { name: "Exam 29 – Measurement Theory", description: "English practice exam", fileUrl: `${PREFIX}/exam_29_measurement_theory.docx` },
+  { name: "Exam 30 – Sampling Methods", description: "English practice exam", fileUrl: `${PREFIX}/exam_30_sampling_methods.docx` },
+  { name: "Exam 31 – Exploratory Data Analysis", description: "English practice exam", fileUrl: `${PREFIX}/exam_31_exploratory_data_analysis.docx` },
+  { name: "Exam 32 – Qualitative Methods Overview", description: "English practice exam", fileUrl: `${PREFIX}/exam_32_qualitative_methods_overview.docx` },
+  { name: "Exam 33 – Qualitative Interview", description: "English practice exam", fileUrl: `${PREFIX}/exam_33_qualitative_interview.docx` },
+  { name: "Exam 34 – Content Analysis (Mayring)", description: "English practice exam", fileUrl: `${PREFIX}/exam_34_content_analysis_mayring.docx` },
+  { name: "Exam 35 – Grounded Theory", description: "English practice exam", fileUrl: `${PREFIX}/exam_35_grounded_theory.docx` },
+  { name: "Exam 36 – Discourse Analysis", description: "English practice exam", fileUrl: `${PREFIX}/exam_36_discourse_analysis.docx` },
+  { name: "Exam 37 – Qualitative Observation", description: "English practice exam", fileUrl: `${PREFIX}/exam_37_qualitative_observation_ethnography.docx` },
+  { name: "Exam 38 – Experimental Design", description: "English practice exam", fileUrl: `${PREFIX}/exam_38_experimental_design.docx` },
+  { name: "Exam 39 – Power Analysis", description: "English practice exam", fileUrl: `${PREFIX}/exam_39_power_analysis.docx` },
+  { name: "Exam 40 – Survey Design", description: "English practice exam", fileUrl: `${PREFIX}/exam_40_survey_design.docx` },
+  { name: "Exam 41 – Mixed Methods", description: "English practice exam", fileUrl: `${PREFIX}/exam_41_mixed_methods.docx` },
+  { name: "Exam 42 – Systematic Reviews", description: "English practice exam", fileUrl: `${PREFIX}/exam_42_systematic_reviews_meta_analysis.docx` },
+]
+
+export const DOWNLOADS: Record<string, { items: DownloadItem[]; categories: string[] }> = {
+  library_basics: {
+    categories: [
+      "Entscheidungsbaum & Testauswahl",
+      "Diktionär Abi",
+      "Spickzettel & Cheatsheets Abi",
+      "Dossiers 10–13 (Regression, t-Test)",
+      "Prüfungen 10–13",
+      "Exams 10–13 (English)",
+    ],
+    items: [...BASICS_ITEMS],
+  },
+  library_standard: {
+    categories: [
+      "Alles aus Basics",
+      "Diktionär Bachelor",
+      "Code-Einführungen (R, Python, SPSS) – Bachelor",
+      "Dossiers 10–31 (Quantitative Verfahren)",
+      "Dossiers 32–37 (Qualitative Methoden)",
+      "Prüfungen 10–42",
+      "Exams 10–42 (English)",
+      "Klausur Bachelor",
+    ],
+    items: [...BASICS_ITEMS, ...STANDARD_EXTRA, ...PRUFUNGEN_10_25, ...PRUFUNGEN_26_42, ...EXAMS_14_42],
+  },
+  library_advanced: {
+    categories: [
+      "Alles aus Standard",
+      "Diktionär Master",
+      "Code-Einführungen & Skripte (R, Python, SPSS) – Master",
+      "Dossiers 38–42 (Experimentelles Design, Power, Survey, Mixed Methods, Reviews)",
+      "Master-Klausurkonstruktionen",
+    ],
+    items: [...BASICS_ITEMS, ...STANDARD_EXTRA, ...PRUFUNGEN_10_25, ...PRUFUNGEN_26_42, ...EXAMS_14_42, ...ADVANCED_EXTRA],
+  },
+  library_all_access: {
+    categories: [
+      "Alles aus Advanced",
+      "Diktionär PhD",
+      "Cheatsheet & Spickzettel PhD",
+      "EN-Versionen aller Dossiers (en_10–42)",
+      "Literaturverzeichnis",
+    ],
+    items: [...BASICS_ITEMS, ...STANDARD_EXTRA, ...PRUFUNGEN_10_25, ...PRUFUNGEN_26_42, ...EXAMS_14_42, ...ADVANCED_EXTRA, ...ALL_ACCESS_EXTRA],
+  },
 }
 
-export function getDownloads(productKey: string): DownloadItem[] {
-  return DOWNLOADS[productKey] || []
+export function getDownloads(productKey: string) {
+  return DOWNLOADS[productKey]?.items || []
+}
+
+export function getCategories(productKey: string) {
+  return DOWNLOADS[productKey]?.categories || []
 }

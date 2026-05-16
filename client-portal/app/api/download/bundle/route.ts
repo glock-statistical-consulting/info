@@ -5,7 +5,10 @@ import fs from "fs"
 import path from "path"
 
 export async function GET(req: NextRequest) {
-  const productKey = req.nextUrl.searchParams.get("productKey") || "library_bundle"
+  const productKey = req.nextUrl.searchParams.get("productKey")
+  if (!productKey || !getDownloads(productKey).length) {
+    return NextResponse.json({ error: "Missing or invalid productKey" }, { status: 400 })
+  }
   const items = getDownloads(productKey)
 
   if (items.length === 0) {

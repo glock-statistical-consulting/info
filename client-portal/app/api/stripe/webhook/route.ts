@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import Stripe from "stripe"
 import { stripe } from "@/lib/stripe/server"
-import { createClient } from "@/lib/supabase/server"
+import { createWebhookClient } from "@/lib/supabase/webhook"
 import { sendPurchaseConfirmation, sendAdminNotification } from "@/lib/email"
 import { getDownloads } from "@/lib/downloads"
 import { PRODUCTS, ProductKey } from "@/lib/stripe/products"
@@ -50,7 +50,7 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
   const productKey = session.metadata?.productKey
   if (!productKey) return
 
-  const supabase = await createClient()
+  const supabase = createWebhookClient()
 
   await supabase.from("purchases").insert({
     product_key: productKey,

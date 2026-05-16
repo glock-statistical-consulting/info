@@ -489,36 +489,69 @@ main > .section-spacer:first-of-type {
 
 <section id="study-library" class="library-section">
 
-  <article class="library-card">
-    <div class="library-content">
-      <span class="library-tag"><img src="img/icon_4.png" alt="" class="lib-icon"><span data-i18n="lib_tag">Selbstlern-Bibliothek</span></span>
-      <h2 class="library-title" data-i18n="lib_title">Statistik lernen &mdash; flexibel &amp; in deinem Tempo</h2>
-      <p class="library-text" data-i18n="lib_text">Zugriff auf Video-Tutorials, PDF-Skripte, Datens&auml;tze und Schritt-f&uuml;r-Schritt &Uuml;bungen f&uuml;r Statistik, SPSS, R und Python.</p>
-      <div class="library-features">
-        <div class="library-feature check"><span data-i18n="lib_feat1">Lebenslanger Zugriff</span></div>
-        <div class="library-feature check"><span data-i18n="lib_feat2">Sofortiger Download</span></div>
-        <div class="library-feature check"><span data-i18n="lib_feat3">Ideal f&uuml;r Klausuren</span></div>
-        <div class="library-feature check"><span data-i18n="lib_feat4">Bachelor &amp; Master Niveau</span></div>
-      </div>
-      <div class="library-actions">
-        <a href="#library" class="btn" data-i18n="lib_materials_btn">Materialien ansehen</a>
-      </div>
+  <span class="library-tag"><img src="img/icon_4.png" alt="" class="lib-icon"><span data-i18n="lib_tag">Selbstlern-Bibliothek</span></span>
+  <h2 class="library-title" data-i18n="lib_title">Statistik lernen &mdash; flexibel &amp; in deinem Tempo</h2>
+  <p class="library-text" data-i18n="lib_text">W&auml;hle das passende Paket f&uuml;r dein Niveau &mdash; vom Abi bis zur Promotion. Lebenslanger Zugriff, sofortiger Download.</p>
+
+  <div class="pricing-grid">
+
+    <div class="card" data-card="Basics">
+      <span class="badge" data-i18n="badge_basics">Einstieg</span>
+      <h2 data-i18n="lib_basics_title">Basics</h2>
+      <p class="price">9 &euro;</p>
+      <p class="price-note" data-i18n="lib_basics_note">Ideal f&uuml;r Abitur &amp; Studienstart</p>
+      <ul class="feature-list">
+        <li data-i18n="lib_basics_feat1">Entscheidungsbaum zur Testauswahl</li>
+        <li data-i18n="lib_basics_feat2">Diktion&auml;r, Spickzettel &amp; Cheatsheet Abi</li>
+        <li data-i18n="lib_basics_feat3">Dossiers 10&ndash;13 (Regression, t-Test)</li>
+        <li data-i18n="lib_basics_feat4">Pr&uuml;fungen &amp; Exams 10&ndash;13</li>
+      </ul>
+      <button class="btn btn-card" onclick="stripeCheckout('library_basics', this)" data-i18n="btn_library_basics">9€ &ndash; Jetzt kaufen</button>
     </div>
-    <aside class="library-preview">
-      <div class="preview-box">
-        <h3 data-i18n="lib_preview_title">Statistics Library</h3>
-        <p class="preview-price">12&ndash;49 &euro;</p>
-        <ul class="preview-list">
-          <li data-i18n="lib_preview_li1">Video Tutorials</li>
-          <li data-i18n="lib_preview_li2">PDF-Skripte</li>
-          <li data-i18n="lib_preview_li3">&Uuml;bungsaufgaben</li>
-          <li data-i18n="lib_preview_li4">SPSS / R / Python</li>
-          <strong><li data-i18n="lib_preview_li5">Einzel- oder Vollzugriff</li></strong>
-        </ul>
-        <button class="btn" onclick="stripeCheckout('library_bundle', this)" data-i18n="btn_library_bundle">Bundle kaufen &ndash; 49&euro;</button>
-      </div>
-    </aside>
-  </article>
+
+    <div class="card" data-card="Standard">
+      <span class="badge" data-i18n="badge_advanced">Beliebt</span>
+      <h2 data-i18n="lib_standard_title">Standard</h2>
+      <p class="price">24 &euro;</p>
+      <p class="price-note" data-i18n="lib_standard_note">F&uuml;r Bachelor-Studenten &amp; fortgeschrittene Analysen</p>
+      <ul class="feature-list">
+        <li data-i18n="lib_standard_feat1">Alles aus Basics, plus Diktion&auml;r Bachelor</li>
+        <li data-i18n="lib_standard_feat2">Code-Einf&uuml;hrungen R / Python / SPSS</li>
+        <li data-i18n="lib_standard_feat3">Dossiers 10&ndash;37 inkl. Qualitativer Methoden</li>
+        <li data-i18n="lib_standard_feat4">Alle Pr&uuml;fungen &amp; Exams 10&ndash;42</li>
+      </ul>
+      <button class="btn btn-card" onclick="stripeCheckout('library_standard', this)" data-i18n="btn_library_standard">24€ &ndash; Jetzt kaufen</button>
+    </div>
+
+    <div class="card" data-card="Advanced">
+      <span class="badge" data-i18n="badge_expert">Profi</span>
+      <h2 data-i18n="lib_advanced_title">Advanced</h2>
+      <p class="price">39 &euro;</p>
+      <p class="price-note" data-i18n="lib_advanced_note">F&uuml;r Master-Studium &amp; anspruchsvolle Forschung</p>
+      <ul class="feature-list">
+        <li data-i18n="lib_advanced_feat1">Alles aus Standard, plus Diktion&auml;r Master</li>
+        <li data-i18n="lib_advanced_feat2">Code-Einf&uuml;hrungen &amp; Skripte Master</li>
+        <li data-i18n="lib_advanced_feat3">Dossiers 38&ndash;42 (Experimentelles Design, Power)</li>
+        <li data-i18n="lib_advanced_feat4">Klausurkonstruktionen Master</li>
+      </ul>
+      <button class="btn btn-card" onclick="stripeCheckout('library_advanced', this)" data-i18n="btn_library_advanced">39€ &ndash; Jetzt kaufen</button>
+    </div>
+
+    <div class="card" data-card="All-Access">
+      <span class="badge" data-i18n="badge_all_access">Komplett</span>
+      <h2 data-i18n="lib_all_access_title">All-Access</h2>
+      <p class="price">59 &euro;</p>
+      <p class="price-note" data-i18n="lib_all_access_note">F&uuml;r Promotion &amp; maximale Flexibilit&auml;t</p>
+      <ul class="feature-list">
+        <li data-i18n="lib_all_access_feat1">Alles aus Advanced, plus Diktion&auml;r PhD</li>
+        <li data-i18n="lib_all_access_feat2">Cheatsheet &amp; Spickzettel PhD</li>
+        <li data-i18n="lib_all_access_feat3">EN-Versionen aller Dossiers (en_10&ndash;42)</li>
+        <li data-i18n="lib_all_access_feat4">Literaturverzeichnis &amp; Vollzugriff</li>
+      </ul>
+      <button class="btn btn-card" onclick="stripeCheckout('library_all_access', this)" data-i18n="btn_library_all_access">59€ &ndash; Jetzt kaufen</button>
+    </div>
+
+  </div>
 
 </section>
 
