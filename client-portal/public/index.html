@@ -14,12 +14,12 @@
 <link rel="canonical" href="https://www.kevinglock.de/">
 <link rel="icon" href="img/favicon.png" type="image/png">
 <title data-i18n="title_home">GSC Services - Statistik Nachhilfe & Data Science Consulting</title>
-<link rel="preload" as="image" href="img/body_background_four.webp">
+<link rel="preload" as="image" href="img/body_background_four.jpg">
 <link rel="stylesheet" href="style.css">
 <style>
   body {
     background-color: #e8eef3;
-    background: url('img/body_background_four.webp');
+    background: url('img/body_background_four.jpg');
     background-size: cover;
     background-attachment: fixed;
   }
@@ -716,9 +716,10 @@ main > .section-spacer:first-of-type {
       <input type="hidden" name="booking_hours" value="NA">
       <input type="hidden" name="discount" value="NA">
       <input type="hidden" name="language" id="hero-lang">
-      <input type="text" name="name" data-i18n-placeholder="contact_name" placeholder="Ihr vollständiger Name" required autocomplete="name">
-      <input type="email" name="email" data-i18n-placeholder="contact_email" placeholder="Ihre Email-Adresse" required autocomplete="email" inputmode="email">
-      <textarea name="message" data-i18n-placeholder="contact_message" placeholder="Nennen Sie bitte Details Ihrer Anfrage?" rows="5" required></textarea>
+      <input type="text" name="_website" value="" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+      <input type="text" name="name" data-i18n-placeholder="contact_name" placeholder="Ihr vollständiger Name" required autocomplete="name" maxlength="200">
+      <input type="email" name="email" data-i18n-placeholder="contact_email" placeholder="Ihre Email-Adresse" required autocomplete="email" inputmode="email" maxlength="320">
+      <textarea name="message" data-i18n-placeholder="contact_message" placeholder="Nennen Sie bitte Details Ihrer Anfrage?" rows="5" required maxlength="5000"></textarea>
       <button type="submit" class="btn" data-i18n="hero_contact_submit">Anfrage senden</button>
     </form>
   </div>

@@ -162,6 +162,13 @@
   border-radius: 0;
 }
 
+.consulting-hero .hero-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 0 24px 0;
+}
+
 .subtitle {
   text-align: center;
 }
@@ -172,7 +179,7 @@ main > .section-spacer:first-of-type {
 
 @media (max-width: 1024px) {
   .consulting-hero {
-    padding-top: 120px;
+    padding-top: 80px;
     padding-bottom: 40px;
   }
   main > .section-spacer:first-of-type {
@@ -180,6 +187,16 @@ main > .section-spacer:first-of-type {
   }
   .hero-content {
     grid-template-columns: 1fr;
+  }
+  .hero-action {
+    justify-content: center;
+    flex-direction: column;
+    gap: 8px;
+    align-items: stretch;
+    flex-wrap: nowrap;
+  }
+  .consulting-hero .hero-badges {
+    justify-content: center;
   }
 }
 
@@ -231,11 +248,16 @@ main > .section-spacer:first-of-type {
     </div>
     <div class="hero-content">
       <div>
+        <div class="hero-badges">
+          <div class="hero-badge"><span data-i18n="hero_consulting_badge_1">Beratung</span></div>
+          <div class="hero-badge"><span data-i18n="hero_consulting_badge_2">Analysen</span></div>
+          <div class="hero-badge"><span data-i18n="hero_consulting_badge_3">Projekte</span></div>
+        </div>
         <h1 data-i18n="hero_consulting_title">Daten in Entscheidungen verwandeln.</h1>
         <p class="hero-subtitle" data-i18n="hero_consulting_subtitle">Ich unterst&uuml;tze Dich und Dein Team bei Analyse, Methodik und Interpretation. Pers&ouml;nlich, direkt und ohne Umwege.</p>
         <div class="hero-action">
           <a href="#process" class="btn" data-i18n="hero_consulting_pricing_btn">Wie ich arbeite</a>
-          <a href="#contact" class="btn-secondary open-modal" data-i18n="hero_consulting_btn">Angebot anfordern</a>
+          <a href="#contact" class="btn-secondary open-modal" data-i18n="hero_consulting_btn">Kostenloses Erstgespr&auml;ch</a>
         </div>
       </div>
       <div></div>

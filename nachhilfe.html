@@ -195,6 +195,13 @@
   border-radius: 0;
 }
 
+.hero .hero-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 0 24px 0;
+}
+
 .subtitle {
   text-align: center;
 }
@@ -208,7 +215,7 @@
 
 @media (max-width: 1024px) {
   header.hero {
-    padding-top: 120px;
+    padding-top: 80px;
     padding-bottom: 40px;
   }
   .services-grid {
@@ -218,6 +225,16 @@
   }
   .hero-content {
     grid-template-columns: 1fr;
+  }
+  .hero-action {
+    justify-content: center;
+    flex-direction: column;
+    gap: 8px;
+    align-items: stretch;
+    flex-wrap: nowrap;
+  }
+  .hero .hero-badges {
+    justify-content: center;
   }
 }
 
@@ -289,11 +306,16 @@ main > .section-spacer:first-of-type {
     </div>
     <div class="hero-content">
       <div>
+        <div class="hero-badges">
+          <div class="hero-badge"><span data-i18n="hero_nachhilfe_badge_1">Pr&uuml;fungsvorbereitung</span></div>
+          <div class="hero-badge"><span data-i18n="hero_nachhilfe_badge_2">Analysen</span></div>
+          <div class="hero-badge"><span data-i18n="hero_nachhilfe_badge_3">Thesis</span></div>
+        </div>
         <h1 data-i18n="hero_nachhilfe_title">Pr&uuml;fungen bestehen. Probleme l&ouml;sen. Statistik verstehen.</h1>
         <p class="hero-subtitle" data-i18n="hero_nachhilfe_subtitle">Ich unterst&uuml;tze bei Statistik, Analyse und Abschlussarbeiten. Auf den Punkt erkl&auml;rt, ohne Umwege.</p>
         <div class="hero-action">
           <a href="#process" class="btn" data-i18n="hero_nachhilfe_pricing_btn">Wie ich arbeite</a>
-          <a href="#contact" class="btn-secondary open-modal" data-i18n="hero_nachhilfe_btn">Jetzt Nachhilfe buchen</a>
+          <a href="#contact" class="btn-secondary open-modal" data-i18n="hero_nachhilfe_btn">Kostenloses Erstgespr&auml;ch</a>
         </div>
       </div>
       <div></div>
@@ -426,8 +448,8 @@ main > .section-spacer:first-of-type {
       <h2 data-i18n="price_basics">Basics</h2>
       <p class="price">45&ndash;60 &euro; <span data-i18n="price_unit">/ Std.</span></p>
       <ul class="feature-list">
-        <li data-i18n="nach_b_feat1">Deskriptive Statistik</li>
-        <li data-i18n="nach_b_feat2">SPSS / R / Python Einf&uuml;hrung</li>
+        <li data-i18n="nach_b_feat1">Grundlagen der Statistik</li>
+        <li data-i18n="nach_b_feat2">Einf&uuml;hrung SPSS / R / Python</li>
         <li data-i18n="nach_b_feat3">Klausurvorbereitung</li>
         <li data-i18n="nach_b_feat4">Visualisierung &amp; Datens&auml;tze</li>
       </ul>
@@ -446,7 +468,7 @@ main > .section-spacer:first-of-type {
     </div>
 
     <div class="card" data-card="Expert">
-      <span class="badge" data-i18n="badge_expert">Profi</span>
+          <span class="badge" data-i18n="badge_expert">Dissertation</span>
       <h2 data-i18n="price_expert">Expert</h2>
       <p class="price">75&ndash;90 &euro; <span data-i18n="price_unit">/ Std.</span></p>
       <ul class="feature-list">
@@ -489,7 +511,7 @@ main > .section-spacer:first-of-type {
     <aside class="library-preview">
       <div class="preview-box">
         <h3 data-i18n="lib_preview_title">Statistics Library</h3>
-        <p class="preview-price">12&ndash;39 &euro;</p>
+        <p class="preview-price">9&ndash;39 &euro;</p>
         <ul class="preview-list">
           <li data-i18n="lib_preview_li1">Video Tutorials</li>
           <li data-i18n="lib_preview_li2">PDF-Skripte</li>
