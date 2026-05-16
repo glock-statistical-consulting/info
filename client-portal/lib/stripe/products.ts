@@ -1,4 +1,5 @@
 export type ProductKey =
+  | "library_bundle"
   | "library_basics"
   | "library_standard"
   | "library_advanced"
@@ -17,6 +18,14 @@ export interface ProductConfig {
 }
 
 export const PRODUCTS: Record<ProductKey, ProductConfig> = {
+  library_bundle: {
+    key: "library_bundle",
+    name: "Statistics Library – Komplettzugriff",
+    description: "Einmaliger Kauf mit lebenslangem Zugriff auf alle Materialien",
+    price: 4900,
+    type: "one_time",
+    metadata: { access: "library" },
+  },
   library_basics: {
     key: "library_basics",
     name: "Statistics Library – Basics",

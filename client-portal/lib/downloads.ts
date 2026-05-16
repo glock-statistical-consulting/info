@@ -188,6 +188,20 @@ const EXAMS_14_42: DownloadItem[] = [
 ]
 
 export const DOWNLOADS: Record<string, { items: DownloadItem[]; categories: string[] }> = {
+  library_bundle: {
+    categories: [
+      "Klausurkonstruktionen",
+      "Statistische Programmieraufgaben",
+      "Dossiers zu statistischen Verfahren",
+      "Glossare & Fachbegriffe",
+      "Diktionäre Deutsch–Englisch",
+      "Übungsdatensätze",
+      "Lösungsskripte (R / Python / SPSS)",
+    ],
+    items: [
+      ...BASICS_ITEMS, ...STANDARD_EXTRA, ...PRUFUNGEN_10_25, ...PRUFUNGEN_26_42, ...EXAMS_14_42, ...ADVANCED_EXTRA, ...ALL_ACCESS_EXTRA,
+    ],
+  },
   library_basics: {
     categories: [
       "Entscheidungsbaum & Testauswahl",
