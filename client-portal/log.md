@@ -135,7 +135,5 @@
 - `const lenis` → `window.lenis` für globale Zugriffe
 
 ### Offen / Morgen
-1. **Selection-Modale + dynamische Checkout-Buttons**: User wählt Dateien aus → Modal zeigt passenden Stripe-Button
-2. Library-UI in `nachhilfe.html` neu designen
-3. Resend-Domain-Verifizierung prüfen (kein Log-Eintrag bisher)
-4. Stripe-Live-Mode aktivieren
+1. **Booking-Modal für nachhilfe.html umbauen**
+2. Stripe-Live-Mode aktivieren
