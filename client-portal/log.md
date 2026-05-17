@@ -134,6 +134,24 @@
 - `document.body.style.overflow = 'hidden'` bei contact modal ergänzt (fehlte dort)
 - `const lenis` → `window.lenis` für globale Zugriffe
 
+### Booking-Modal (nachhilfe.html) — 3-Section-Design
+- **Step 1**: Type-Buttons (Anfrage/Nachhilfe/Consulting)
+- **Step 2a (Inquiry/Consulting)**: Kontaktformular mit `booking_type` + `booking_service` hidden fields
+- **Step 2b (Nachhilfe)**: Level-Grid (Einstieg/Absolventen/Dissertation) + 4 Package-Cards
+- Einstieg → Stripe-Checkout; Absolventen/Dissertation/Individuell → Inquiry-Form
+- Level-Preise dynamisch: Einstieg 45€, Absolventen 60€, Dissertation 75€ Basis; 10%/15% Rabatt für 5h/10h
+- Hero-Button + Advanced/Expert-Card-Button + CTA rufen `openBookingModal()` auf
+- Price-Card-Buttons (Basics/Advanced/Expert) entfernt (durch Modal ersetzt)
+
+### Inquiry-Modal auf allen anderen Seiten (index, about, consulting, impressum, datenschutz)
+- Einheitliches Modal im Corporate Design: `openInquiryModal()` → Step 1 übersprungen
+- Formular-Felder + Überschriften auf #FAFAF8/#163E64 Farbpalette aktualisiert
+- `translations.js`: 16 neue DE/EN Keys + angepasste Descriptions
+
+### Globaler White→#FAFAF8 Austausch
+- Sämtliche `#fff`, `#ffffff`, `white`, `rgba(255,255,255,…)` → `#FAFAF8` / `rgba(250,250,248,…)`
+- Betrifft: alle HTML-Seiten, style.css (root+public), client-portal/app/globals.css, Supabase-Email-Templates
+- Textfarbe auf nicht-ausgewählten Level/Type-Buttons auf #163E64 gesetzt (war inherit)
+
 ### Offen / Morgen
-1. **Booking-Modal für nachhilfe.html umbauen**
-2. Stripe-Live-Mode aktivieren
+1. Stripe-Live-Mode aktivieren
