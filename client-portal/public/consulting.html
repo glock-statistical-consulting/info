@@ -1,13 +1,13 @@
 ﻿<!DOCTYPE html>
 <html lang="de">
 <head>
-<meta name="description" content="Datenanalyse, Methodentraining, Datenmanagement und Statistik-Consulting fÃ¼r Unternehmen. SPSS, R, Python, SQL â€“ individuell auf Ihre Anforderungen abgestimmt. Jetzt BeratungsgesprÃ¤ch vereinbaren!">
-<meta name="keywords" content="Datenanalyse Consulting, Statistik Beratung Unternehmen, Methodentraining, Datenmanagement, SPSS Consulting, R Beratung, Python Datenanalyse, SQL Consulting, Data Science Schulung, A/B Testing, Statistik Schulung FÃ¼hrungskrÃ¤fte">
+<meta name="description" content="Datenanalyse, Methodentraining, Datenmanagement und Statistik-Consulting für Unternehmen. SPSS, R, Python, SQL – individuell auf Ihre Anforderungen abgestimmt. Jetzt Beratungsgespräch vereinbaren!">
+<meta name="keywords" content="Datenanalyse Consulting, Statistik Beratung Unternehmen, Methodentraining, Datenmanagement, SPSS Consulting, R Beratung, Python Datenanalyse, SQL Consulting, Data Science Schulung, A/B Testing, Statistik Schulung Führungskräfte">
 <meta name="author" content="Kevin Glock Statistical Consulting Services | GSC- Professionelle Statistik Beratung">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta property="og:title" content="Beratung & Datenanalyse fÃ¼r Unternehmen | GSC">
-<meta property="og:description" content="Datenanalyse, Methodentraining und Statistik-Consulting fÃ¼r Unternehmen und Organisationen. Individuelle LÃ¶sungen fÃ¼r Ihre Datenherausforderungen.">
+<meta property="og:title" content="Beratung & Datenanalyse für Unternehmen | GSC">
+<meta property="og:description" content="Datenanalyse, Methodentraining und Statistik-Consulting für Unternehmen und Organisationen. Individuelle Lösungen für Ihre Datenherausforderungen.">
 <meta property="og:image" content="https://www.kevinglock.de/img/logo.svg">
 <meta property="og:url" content="https://www.kevinglock.de/consulting.html">
 <meta property="og:type" content="website">
@@ -73,10 +73,10 @@
   "@type": "LocalBusiness",
   "name": "Kevin Glock Statistical Consulting Services | GSC",
   "image": "https://www.kevinglock.de/img/logo.svg",
-  "description": "Professionelle Statistik Nachhilfe und Data Science Consulting fÃ¼r SPSS, R und Python",
+  "description": "Professionelle Statistik Nachhilfe und Data Science Consulting für SPSS, R und Python",
   "address": {
     "@type": "PostalAddress",
-    "streetAddress": "SchÃ¶nebecker StraÃŸe 76",
+    "streetAddress": "Schönebecker Straße 76",
     "addressLocality": "Essen",
     "postalCode": "45359",
     "addressCountry": "Deutschland"
@@ -99,7 +99,7 @@
         "itemOffered": {
           "@type": "Service",
           "name": "Datenanalyse & Beratung",
-          "description": "Auswertungen, TestplÃ¤ne, A/B-Testing & multivariate Verfahren â€“ maÃŸgeschneidert fÃ¼r Unternehmen."
+          "description": "Auswertungen, Testpläne, A/B-Testing & multivariate Verfahren – maßgeschneidert für Unternehmen."
         }
       },
       {
@@ -107,7 +107,7 @@
         "itemOffered": {
           "@type": "Service",
           "name": "Methodentraining & Schulungen",
-          "description": "Individuelle Schulungen fÃ¼r FÃ¼hrungskrÃ¤fte und Mitarbeiter in Statistik, Tools und Methoden."
+          "description": "Individuelle Schulungen für Führungskräfte und Mitarbeiter in Statistik, Tools und Methoden."
         }
       },
       {
@@ -123,7 +123,7 @@
         "itemOffered": {
           "@type": "Service",
           "name": "Evaluation & Review",
-          "description": "Bestehende Praxis evaluieren, Schwachstellen identifizieren und konkrete Ãœberarbeitungsempfehlungen geben."
+          "description": "Bestehende Praxis evaluieren, Schwachstellen identifizieren und konkrete Überarbeitungsempfehlungen geben."
         }
       }
     ]
@@ -205,6 +205,64 @@ main > .section-spacer:first-of-type {
     grid-template-columns: 1fr;
   }
 }
+
+/* ── Booking Modal (wie nachhilfe.html) ── */
+.bk-overlay {
+  position: fixed; inset: 0;
+  background: rgba(10,10,10,0.6);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex; align-items: flex-end; justify-content: center;
+  z-index: 9999;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+.bk-overlay.active { opacity: 1; pointer-events: all; }
+.bk-modal {
+  background: #FAFAF8;
+  border-radius: 18px 18px 0 0;
+  width: 100%; max-width: 520px;
+  max-height: 90vh; overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  padding: 1.2rem 1.5rem 1.5rem;
+  transform: translateY(40px);
+  transition: transform 0.3s cubic-bezier(0.22,1,0.36,1);
+  position: relative;
+}
+.bk-overlay.active .bk-modal { transform: translateY(0); }
+.bk-handle {
+  width: 40px; height: 4px;
+  background: #d1d5db; border-radius: 99px;
+  margin: 0 auto 1rem;
+}
+.bk-title {
+  font-size: 1.4rem; font-weight: 700; color: #163E64;
+  line-height: 1.2; margin: 0 0 0.2rem;
+}
+.bk-sub {
+  font-size: 0.85rem; color: #6b7280;
+  margin: 0 0 1.2rem; line-height: 1.5;
+}
+.bk-form { display: flex; flex-direction: column; gap: 0.8rem; }
+.bk-form input,
+.bk-form textarea {
+  width: 100%; padding: 0.7rem 0.9rem;
+  border: 1.5px solid #e5e7eb; border-radius: 8px;
+  font-size: 0.9rem; font-family: inherit;
+  background: #FAFAF8; color: #163E64;
+  transition: border-color 0.15s; box-sizing: border-box;
+}
+.bk-form input:focus,
+.bk-form textarea:focus { outline: none; border-color: #163E64; }
+.bk-form textarea { resize: vertical; min-height: 80px; }
+.bk-form .btn { width: 100%; margin-top: 0.3rem; }
+
+@media (min-width: 560px) {
+  .bk-overlay { align-items: center; padding: 1.5rem; }
+  .bk-modal { border-radius: 18px; max-height: 90vh; }
+  .bk-handle { display: none; }
+}
 </style>
 <body>
 
@@ -215,7 +273,7 @@ main > .section-spacer:first-of-type {
 
   <div class="nav-links" id="navLinks">
     <a href="index.html" data-i18n="navbar_home">Home</a>
-    <a href="about.html" data-i18n="navbar_about">Ãœber mich</a>
+    <a href="about.html" data-i18n="navbar_about">Über mich</a>
     <a href="nachhilfe.html" data-i18n="navbar_services">Nachhilfe &amp; Studium</a>
     <a href="consulting.html" data-i18n="navbar_consulting">Beratung &amp; Datenanalyse</a>
     <a href="login.html" data-i18n="navbar_login">Login</a>
@@ -229,7 +287,7 @@ main > .section-spacer:first-of-type {
     <button class="lang-btn" data-lang="en">EN</button>
   </div>
 <div class="burger" id="burger">
-      â˜°
+      ☰
     </div>
   </div>
 </nav>
@@ -439,22 +497,23 @@ main > .section-spacer:first-of-type {
           <a href="datenschutz.html" class="footer-link" data-i18n="footer_datenschutz">Datenschutz</a></li>
           
           <li> <!--Handcrafted-->
-          <p>Handcrafted with â¤ï¸</p></li>
+          <p>Handcrafted with ❤</p></li>
         </ul>
 </div>
 </div>
 </footer>
 
-<!-- Quote Modal (mit strukturierten Feldern) -->
-<div class="modal-overlay" id="contactModal">
-  <div class="modal">
-    <button class="modal-close" id="modalCloseBtn">&times;</button>
-    <div style="padding: 0.5rem 0;">
-      <span style="font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:#163E64;font-weight:700;display:block;margin-bottom:0.2rem;" data-i18n="bk_eyebrow">Beratung &amp; Buchung</span>
-      <h2 style="font-size:1.4rem;font-weight:700;color:#163E64;line-height:1.2;margin:0 0 0.2rem;" data-i18n="quote_title">Angebot anfordern</h2>
-      <p style="font-size:0.85rem;color:#6b7280;margin:0 0 1rem;line-height:1.5;" data-i18n="bk_sub">W&auml;hle, was du brauchst &ndash; Anfrage oder Buchung.</p>
-    </div>
-    <form action="https://wbgnlnvvmifvcenjlmqp.supabase.co/functions/v1/contact-form" method="POST" class="contact-form">
+<!-- Consulting Modal (wie nachhilfe inquiry) -->
+<div class="bk-overlay" id="bookingModal">
+  <div class="bk-modal" role="dialog" aria-modal="true" aria-label="Angebot anfordern">
+
+    <div class="bk-handle"></div>
+    <button class="modal-close" id="bkCloseBtn">&times;</button>
+
+    <h3 class="bk-title" data-i18n="quote_title">Angebot anfordern</h3>
+    <p class="bk-sub" data-i18n="bk_inquiry_sub">Was ist dein Anliegen?</p>
+
+    <form action="https://wbgnlnvvmifvcenjlmqp.supabase.co/functions/v1/contact-form" method="POST" class="bk-form" id="bkContactForm">
       <input type="hidden" name="_next" value="https://www.kevinglock.de/consulting.html">
       <input type="text" name="_website" value="" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
       <input type="hidden" name="booking_type" value="quote">
@@ -462,11 +521,12 @@ main > .section-spacer:first-of-type {
       <input type="hidden" name="booking_hours" value="NA">
       <input type="hidden" name="discount" value="NA">
       <input type="hidden" name="language" id="hero-lang">
-      <input type="text" name="name" data-i18n-placeholder="contact_name" placeholder="Ihr vollst&auml;ndiger Name" required autocomplete="name" maxlength="200" style="width:100%;padding:0.7rem 0.9rem;border:1.5px solid #e5e7eb;border-radius:8px;font-size:0.9rem;font-family:inherit;background:#FAFAF8;color:#163E64;box-sizing:border-box;">
-      <input type="email" name="email" data-i18n-placeholder="contact_email" placeholder="Ihre E-Mail-Adresse" required autocomplete="email" inputmode="email" maxlength="320" style="width:100%;padding:0.7rem 0.9rem;border:1.5px solid #e5e7eb;border-radius:8px;font-size:0.9rem;font-family:inherit;background:#FAFAF8;color:#163E64;box-sizing:border-box;">
-      <textarea name="message" data-i18n-placeholder="contact_message" placeholder="Beschreiben Sie kurz Ihr Projektvorhaben" rows="4" required maxlength="5000" style="width:100%;padding:0.7rem 0.9rem;border:1.5px solid #e5e7eb;border-radius:8px;font-size:0.9rem;font-family:inherit;background:#FAFAF8;color:#163E64;box-sizing:border-box;resize:vertical;min-height:80px;"></textarea>
+      <input type="text" name="name" data-i18n-placeholder="contact_name" placeholder="Ihr vollst&auml;ndiger Name" required autocomplete="name" maxlength="200">
+      <input type="email" name="email" data-i18n-placeholder="contact_email" placeholder="Ihre E-Mail-Adresse" required autocomplete="email" inputmode="email" maxlength="320">
+      <textarea name="message" data-i18n-placeholder="contact_message" placeholder="Nenne bitte Details zu Deiner Anfrage." rows="4" required maxlength="5000"></textarea>
       <button type="submit" class="btn" data-i18n="quote_submit">Angebot anfordern</button>
     </form>
+
   </div>
 </div>
 
@@ -476,17 +536,56 @@ main > .section-spacer:first-of-type {
 <script src="js/stripe-checkout.js"></script>
 <script src="hero-scroll.js"></script>
 <script>
+    var bkOverlay = document.getElementById('bookingModal');
+    var bkCloseBtn = document.getElementById('bkCloseBtn');
+
     function openInquiryModal() {
-      var modal = document.getElementById('contactModal');
-      if (!modal) return;
-      modal.style.display = 'flex';
-      setTimeout(function() { modal.classList.add('active'); }, 10);
+      bkOverlay.classList.add('active');
       var scrollY = window.scrollY;
       document.body.style.position = 'fixed';
       document.body.style.top = '-' + scrollY + 'px';
       document.body.style.width = '100%';
       if (window.lenis) window.lenis.stop();
     }
+
+    function closeBookingModal() {
+      bkOverlay.classList.remove('active');
+      var top = parseFloat(document.body.style.top || '0') * -1;
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      window.scrollTo(0, top);
+      if (window.lenis) window.lenis.start();
+    }
+
+    if (bkCloseBtn) bkCloseBtn.addEventListener('click', closeBookingModal);
+    if (bkOverlay) {
+      bkOverlay.addEventListener('click', function(e) {
+        if (e.target === bkOverlay) closeBookingModal();
+      });
+    }
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && bkOverlay && bkOverlay.classList.contains('active')) closeBookingModal();
+    });
+
+    document.addEventListener('submit', function(e) {
+      var form = e.target;
+      if (form.id === 'bkContactForm') {
+        e.preventDefault();
+        var langInput = document.getElementById('hero-lang');
+        if (langInput) langInput.value = (document.documentElement.lang || 'de').toUpperCase();
+
+        var toast = document.getElementById('toast');
+        if (toast) {
+          var key = 'toast_inquiry';
+          var lang = document.documentElement.lang || 'de';
+          toast.textContent = (typeof translations !== 'undefined' && translations[lang] && translations[lang][key]) || toast.textContent;
+          toast.classList.add('show');
+          setTimeout(function() { toast.classList.remove('show'); }, 2500);
+        }
+        setTimeout(function() { form.submit(); }, 3300);
+      }
+    });
 
     const burger = document.getElementById("burger");
     const navLinks = document.getElementById("navLinks");

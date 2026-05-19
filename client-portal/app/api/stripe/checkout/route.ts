@@ -5,35 +5,50 @@ import { PRODUCTS, ProductKey } from "@/lib/stripe/products"
 
 export async function POST(req: NextRequest) {
   try {
-    const { productKey, userId, mode, successUrl, cancelUrl } = await req.json()
-
-    const product = PRODUCTS[productKey as ProductKey]
-    if (!product) {
-      return NextResponse.json({ error: "Invalid product key" }, { status: 400 })
-    }
+    const { productKey, customAmount, customName, customDescription, customMetadata, userId, mode, successUrl, cancelUrl } = await req.json()
 
     const origin = req.headers.get("origin") || "http://localhost:3000"
     const isEmbedded = mode === "embedded"
 
+    let lineItem: Stripe.Checkout.SessionCreateParams.LineItem
+
+    if (customAmount) {
+      lineItem = {
+        price_data: {
+          currency: "eur",
+          product_data: {
+            name: customName || "Produkt",
+            description: customDescription || undefined,
+          },
+          unit_amount: customAmount,
+        },
+        quantity: 1,
+      }
+    } else {
+      const product = PRODUCTS[productKey as ProductKey]
+      if (!product) {
+        return NextResponse.json({ error: "Invalid product key" }, { status: 400 })
+      }
+      lineItem = {
+        price_data: {
+          currency: "eur",
+          product_data: {
+            name: product.name,
+            description: product.description,
+          },
+          unit_amount: product.price,
+        },
+        quantity: 1,
+      }
+    }
+
     const sessionParams: Stripe.Checkout.SessionCreateParams = {
       mode: "payment",
-      line_items: [
-        {
-          price_data: {
-            currency: "eur",
-            product_data: {
-              name: product.name,
-              description: product.description,
-            },
-            unit_amount: product.price,
-          },
-          quantity: 1,
-        },
-      ],
+      line_items: [lineItem],
       metadata: {
-        productKey: product.key,
+        ...(productKey ? { productKey } : {}),
+        ...(customMetadata || {}),
         ...(userId ? { userId } : {}),
-        ...product.metadata,
       },
       ...(isEmbedded
         ? {

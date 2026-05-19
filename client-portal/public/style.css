@@ -266,6 +266,19 @@ html{
   border-color: var(--orange);
 }
 
+/* Modal submit buttons: dark blue instead of orange */
+.bk-form .btn,
+.modal form .btn,
+.login-form .btn {
+  background: #163E64;
+  border: none;
+}
+.bk-form .btn:hover,
+.modal form .btn:hover,
+.login-form .btn:hover {
+  background: #1e4d7a;
+}
+
 .btn-secondary {
   display: inline-flex;
   align-items: center;
@@ -1012,6 +1025,24 @@ footer p {
 
 .pricing-grid .card h2 {
   min-height: 3rem;
+  text-align: left;
+}
+.pricing-grid .card .price {
+  text-align: left;
+}
+.pricing-grid .price-sub {
+  font-size: 0.75rem;
+  color: #16a34a;
+  margin: -0.3rem 0 0.8rem;
+  text-align: left;
+}
+.pricing-grid .card .btn {
+  background: #163E64;
+  border: none;
+  color: #FAFAF8;
+}
+.pricing-grid .card .btn:hover {
+  background: linear-gradient(90deg, rgba(250,250,248,0.06), rgba(250,250,248,0.06)), linear-gradient(90deg, #163E64, #1e4d7a);
 }
 
 .pricing-grid .price-note {
