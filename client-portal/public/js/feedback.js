@@ -5,37 +5,79 @@ async function loadFeedback(containerId) {
   try {
     const res = await fetch("https://kevinglock.de/api/feedback/public")
     const data = await res.json()
-    if (!data.feedback || data.feedback.length === 0) {
-      el.innerHTML = '<p style="color:#94a3b8;font-size:14px;">Noch kein Feedback vorhanden.</p>'
-      return
-    }
+    if (!data.feedback || data.feedback.length === 0) return
 
-    const total = data.feedback.length
-    const avg = (data.feedback.reduce((s, f) => s + f.rating, 0) / total).toFixed(1)
+    const items = data.feedback.filter((f) => f.rating >= 3)
+    if (items.length === 0) return
 
     let html = `
-      <div style="text-align:center;margin-bottom:24px;">
-        <div style="font-size:36px;font-weight:700;color:#1e3a5f;">${avg}</div>
-        <div style="color:#f59e0b;font-size:24px;margin:4px 0;">${renderStars(Math.round(Number(avg)))}</div>
-        <div style="color:#94a3b8;font-size:14px;">${total} Bewertungen</div>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:16px;">
+      <style>
+        #feedback-carousel { position:relative; overflow:hidden; margin:0 auto; }
+        #feedback-track { display:flex; transition:transform .5s ease; gap:16px; }
+        .f-card { flex:0 0 calc((100% - 32px)/3); min-width:0; background:#fff; border:1px solid #e2e8f0; border-radius:10px; padding:20px; box-sizing:border-box; }
+        .f-stars { color:#f59e0b; font-size:18px; margin-bottom:8px; }
+        .f-text { color:#334155; font-size:14px; line-height:1.5; margin:0; word-break:break-word; }
+        .f-date { color:#94a3b8; font-size:11px; margin-top:10px; }
+        #feedback-dots { text-align:center; margin-top:16px; display:flex; justify-content:center; gap:8px; }
+        .f-dot { width:10px; height:10px; border-radius:50%; background:#d1d5db; border:none; cursor:pointer; padding:0; }
+        .f-dot.active { background:#f59e0b; }
+        @media (max-width:700px) { .f-card { flex:0 0 100%; } }
+      </style>
+      <div id="feedback-carousel">
+        <div id="feedback-track">
     `
 
-    data.feedback.slice(0, 6).forEach((f) => {
+    items.forEach((f) => {
       html += `
-        <div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:16px;">
-          <div style="color:#f59e0b;font-size:16px;margin-bottom:6px;">${renderStars(f.rating)}</div>
-          ${f.text ? `<p style="color:#334155;font-size:14px;margin:0 0 4px;">${escapeHtml(f.text)}</p>` : ""}
-          <p style="color:#94a3b8;font-size:12px;margin:0;">${new Date(f.created_at).toLocaleDateString("de-DE")}</p>
+        <div class="f-card">
+          <div class="f-stars">${renderStars(f.rating)}</div>
+          ${f.text ? `<p class="f-text">${escapeHtml(f.text)}</p>` : ""}
+          <div class="f-date">${new Date(f.created_at).toLocaleDateString("de-DE")}</div>
         </div>
       `
     })
 
-    html += "</div>"
+    html += `</div><div id="feedback-dots"></div></div>`
     el.innerHTML = html
+
+    const track = document.getElementById("feedback-track")
+    const dotsContainer = document.getElementById("feedback-dots")
+    const isMobile = window.innerWidth <= 700
+    const perPage = isMobile ? 1 : 3
+    const totalSlides = Math.ceil(items.length / perPage)
+    let current = 0
+
+    for (let i = 0; i < totalSlides; i++) {
+      const dot = document.createElement("button")
+      dot.className = "f-dot" + (i === 0 ? " active" : "")
+      dot.addEventListener("click", () => goTo(i))
+      dotsContainer.appendChild(dot)
+    }
+
+    function goTo(i) {
+      current = i
+      const gap = 16
+      const cardWidth = track.children[0].offsetWidth
+      const offset = -current * (cardWidth + gap) * perPage
+      track.style.transform = `translateX(${offset}px)`
+      dotsContainer.querySelectorAll(".f-dot").forEach((d, j) => d.className = "f-dot" + (j === current ? " active" : ""))
+    }
+
+    let interval = setInterval(() => goTo((current + 1) % totalSlides), 4000)
+
+    const carousel = document.getElementById("feedback-carousel")
+    carousel.addEventListener("mouseenter", () => clearInterval(interval))
+    carousel.addEventListener("mouseleave", () => { interval = setInterval(() => goTo((current + 1) % totalSlides), 4000) })
+
+    window.addEventListener("resize", () => {
+      clearInterval(interval)
+      const mob = window.innerWidth <= 700
+      const pp = mob ? 1 : 3
+      if (pp !== perPage) { current = 0; goTo(0) }
+      interval = setInterval(() => goTo((current + 1) % totalSlides), 4000)
+    })
   } catch {
-    el.innerHTML = ""
+    // silent
   }
 }
 
