@@ -1,13 +1,16 @@
 async function loadFeedback(containerId) {
   const el = document.getElementById(containerId)
-  if (!el) return
+  if (!el) { console.log("feedback: container not found"); return }
 
   try {
-    const res = await fetch("https://kevinglock.de/api/feedback/public")
+    const res = await fetch("/api/feedback/public")
+    if (!res.ok) { console.log("feedback: API error", res.status); return }
     const data = await res.json()
+    console.log("feedback: loaded", data.feedback?.length, "items")
     if (!data.feedback || data.feedback.length === 0) return
 
     const items = data.feedback.filter((f) => f.rating >= 3)
+    console.log("feedback: filtered", items.length, "items (>=3 stars)")
     if (items.length === 0) return
 
     let html = `
@@ -65,19 +68,26 @@ async function loadFeedback(containerId) {
 
     let interval = setInterval(() => goTo((current + 1) % totalSlides), 4000)
 
-    const carousel = document.getElementById("feedback-carousel")
-    carousel.addEventListener("mouseenter", () => clearInterval(interval))
-    carousel.addEventListener("mouseleave", () => { interval = setInterval(() => goTo((current + 1) % totalSlides), 4000) })
+    const carousel = el.querySelector("#feedback-carousel")
+    if (carousel) {
+      carousel.addEventListener("mouseenter", () => clearInterval(interval))
+      carousel.addEventListener("mouseleave", () => { interval = setInterval(() => goTo((current + 1) % totalSlides), 4000) })
+    }
 
+    let lastPerPage = perPage
     window.addEventListener("resize", () => {
-      clearInterval(interval)
       const mob = window.innerWidth <= 700
       const pp = mob ? 1 : 3
-      if (pp !== perPage) { current = 0; goTo(0) }
-      interval = setInterval(() => goTo((current + 1) % totalSlides), 4000)
+      if (pp !== lastPerPage) {
+        lastPerPage = pp
+        clearInterval(interval)
+        current = 0
+        goTo(0)
+        interval = setInterval(() => goTo((current + 1) % totalSlides), 4000)
+      }
     })
-  } catch {
-    // silent
+  } catch (e) {
+    console.log("feedback: error", e)
   }
 }
 
