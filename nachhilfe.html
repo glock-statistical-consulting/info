@@ -390,6 +390,8 @@
     max-height: 90vh;
     display: flex;
     flex-direction: column;
+    display: flex;
+    flex-direction: column;
     padding: 1.2rem 1.5rem 1.5rem;
     transform: translateY(40px);
     transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
@@ -581,6 +583,23 @@
     .lib-modal { border-radius: 18px; max-height: 90vh; margin-top: -15px; }
     .lib-handle { display: none; }
   }
+ @media (max-width: 559px) {
+  .lib-modal {
+    height: 90vh;           /* Fallback */
+    height: 90dvh;          /* iOS 16+, Android Chrome 108+ */
+    max-height: -webkit-fill-available; /* old Safari */
+    display: flex;
+    flex-direction: column;
+  }
+  .lib-modal-scroll {
+    flex: 1;
+    min-height: 0;
+    overflow-y: scroll;     /* scroll instead of auto — iOS reliable */
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+}
+}
   @media (max-width: 559px) {
     .lib-confirm-area {
       display: block;
